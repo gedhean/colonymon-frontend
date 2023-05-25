@@ -4,21 +4,30 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
-
+First, install deps:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, run the development server:
+
+```bash
+yarn dev
+```
+
+Open [http://localhost:8081](http://localhost:8081) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Design
+
+Color palette:
+
+![Color Palette](public/images/colonymon-palette.jpeg)
+
+Font familly: [`Open Sans`](https://fonts.google.com/specimen/Open+Sans)
 
 ## Learn More
 
@@ -47,4 +56,5 @@ git config user.email "gedhean.dev@gmail.com"
 
 - [Recharts - API](https://recharts.org/en-US/api);
 - [Material UI - Docs](https://mui.com/material-ui/);
-- [Figma - Colonymon](https://www.figma.com/file/qGtKAliahzKQSORfMneIyR/Material-3-Design-Kit-(Community)?node-id=11%3A1833&t=V8STLabeXCI5Ghp5-0).
+- [Figma - Colonymon](https://www.figma.com/file/qGtKAliahzKQSORfMneIyR/Material-3-Design-Kit-(Community)?node-id=11%3A1833&t=V8STLabeXCI5Ghp5-0);
+- [Mantis Doc](https://codedthemes.gitbook.io/mantis/).
