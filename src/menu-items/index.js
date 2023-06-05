@@ -1,11 +1,11 @@
 // project import
-import other from './other';
 import pages from './pages';
+import config from './config';
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [pages, other]
+  items: [pages, config]
 };
 
 export default menuItems;

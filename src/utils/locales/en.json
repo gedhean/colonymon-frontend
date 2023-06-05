@@ -1,4 +1,5 @@
 {
+  "about": "About",
   "accordion": "Accordion",
   "account-profile": "Account Profile",
   "action-bar": "Action Bar",
@@ -6,6 +7,7 @@
   "alert": "Alert",
   "analytics": "Analytics",
   "apexchart": "Apexchart",
+  "apiaries": "Apiaries",
   "applications": "Applications",
   "authentication": "Authentication",
   "autocomplete": "Autocomplete",
@@ -34,6 +36,7 @@
   "column-resizing": "Column Resizing",
   "coming-soon": "Coming Soon",
   "components": "Components",
+  "configs": "Configurations",
   "contact-us": "Contact US",
   "custom": "Custom",
   "customer": "Customer",

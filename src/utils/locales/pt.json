@@ -1,4 +1,5 @@
 {
+  "about": "Sobre",
   "accordion": "Acordeão",
   "account-profile": "Perfil da conta",
   "action-bar": "Barra de ação",
@@ -6,6 +7,7 @@
   "alert": "Alerta",
   "analytics": "Analitics",
   "apexchart": "Apexchart",
+  "apiaries": "Apiários",
   "applications": "Aplicações",
   "authentication": "Autenticação",
   "autocomplete": "Autocompletar",
@@ -34,6 +36,7 @@
   "column-resizing": "Redimensionamento de coluna",
   "coming-soon": "Em breve",
   "components": "Componentes",
+  "configs": "Configurações",
   "contact-us": "Contate-Nos",
   "custom": "Customizado",
   "customer": "Cliente",

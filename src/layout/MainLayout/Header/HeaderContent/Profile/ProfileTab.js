@@ -1,13 +1,21 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
+
+// next
+import NextLink from 'next/link';
 
 // material-ui
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, Link, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 // assets
 import { EditOutlined, ProfileOutlined, LogoutOutlined, UserOutlined, WalletOutlined } from '@ant-design/icons';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
+const NavLink = (props, ref) => (
+  <NextLink href={props.href} passHref legacyBehavior ref={ref}>
+    <Link {...props} target={props.target} />
+  </NextLink>
+);
 
 const ProfileTab = ({ handleLogout }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -15,22 +23,31 @@ const ProfileTab = ({ handleLogout }) => {
     setSelectedIndex(index);
   };
 
+  let listItemProps = {
+    component: forwardRef(NavLink)
+  };
+
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)}>
+      <ListItemButton
+        {...listItemProps}
+        selected={selectedIndex === 0}
+        onClick={(event) => handleListItemClick(event, 0)}
+        href="/apps/profiles/user/personal"
+      >
         <ListItemIcon>
           <EditOutlined />
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)}>
+      {/* <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)}>
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="View Profile" />
-      </ListItemButton>
+      </ListItemButton> */}
 
-      <ListItemButton selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
+      {/* <ListItemButton selected={selectedIndex === 3} onClick={(event) => handleListItemClick(event, 3)}>
         <ListItemIcon>
           <ProfileOutlined />
         </ListItemIcon>
@@ -41,7 +58,7 @@ const ProfileTab = ({ handleLogout }) => {
           <WalletOutlined />
         </ListItemIcon>
         <ListItemText primary="Billing" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />
