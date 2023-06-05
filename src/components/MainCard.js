@@ -101,6 +101,7 @@ const MainCard = forwardRef(
   }
 );
 
+MainCard.displayName = 'MainCard';
 MainCard.propTypes = {
   border: PropTypes.bool,
   boxShadow: PropTypes.bool,

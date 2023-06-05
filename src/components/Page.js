@@ -12,7 +12,7 @@ import { Box } from '@mui/material';
 const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   <>
     <Head>
-      <title>{`${title} | Mantis React Admin`}</title>
+      <title>{`${title} | Colonymon`}</title>
       {meta}
     </Head>
 
@@ -22,6 +22,7 @@ const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
   </>
 ));
 
+Page.displayName = 'Page';
 Page.propTypes = {
   title: PropTypes.string,
   meta: PropTypes.node,

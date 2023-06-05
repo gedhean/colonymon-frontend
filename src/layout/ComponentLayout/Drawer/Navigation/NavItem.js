@@ -38,11 +38,13 @@ const NavItem = ({ item }) => {
   }
 
   let listItemProps = {
-    component: forwardRef((props, ref) => (
-      <NextLink href={item.url} passHref legacyBehavior ref={ref}>
-        <Link {...props} target={itemTarget} />
-      </NextLink>
-    ))
+    component: forwardRef(function NavLink(props, ref) {
+      return (
+        <NextLink href={item.url} passHref legacyBehavior ref={ref}>
+          <Link {...props} target={itemTarget} />
+        </NextLink>
+      )
+    })
   };
 
   if (item?.external) {
@@ -257,6 +259,7 @@ const NavItem = ({ item }) => {
   );
 };
 
+NavItem.displayName = 'NavItem';
 NavItem.propTypes = {
   item: PropTypes.object
 };

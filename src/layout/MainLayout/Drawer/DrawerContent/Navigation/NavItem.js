@@ -34,11 +34,13 @@ const NavItem = ({ item, level }) => {
   }
 
   let listItemProps = {
-    component: forwardRef((props, ref) => (
-      <NextLink href={item.url} passHref legacyBehavior ref={ref}>
-        <Link {...props} target={itemTarget} />
-      </NextLink>
-    ))
+    component: forwardRef(function NavLink(props, ref) {
+      return (
+        <NextLink href={item.url} passHref legacyBehavior ref={ref}>
+          <Link {...props} target={itemTarget} />
+        </NextLink>
+      )
+    })
   };
   if (item?.external) {
     listItemProps = { component: 'a', href: item.url, target: itemTarget };
@@ -268,6 +270,7 @@ const NavItem = ({ item, level }) => {
   );
 };
 
+NavItem.displayName = 'NavItem';
 NavItem.propTypes = {
   item: PropTypes.object,
   level: PropTypes.number

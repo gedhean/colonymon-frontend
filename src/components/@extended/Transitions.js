@@ -102,6 +102,7 @@ const Transitions = forwardRef(({ children, position = 'top-left', type = 'grow'
   );
 });
 
+Transitions.displayName = 'Transitions';
 Transitions.propTypes = {
   children: PropTypes.node,
   type: PropTypes.oneOf(['grow', 'fade', 'collapse', 'slide', 'zoom']),
