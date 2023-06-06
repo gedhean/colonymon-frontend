@@ -25,17 +25,29 @@ const LogoMain = ({ reverse }) => {
   return (
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
-    */
-   <>
-    <Grid container direction="row" justifyContent="flex-start" alignItems="center" >
-      <Grid item md={3} style={{ display: 'inline-flex' }}>
-        <Image src={theme.palette.mode === ThemeMode.DARK ? logoDark : logo} alt="Colonymon" width={118} height={85} />
+     */
+    <>
+      <Grid
+        container
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid
+          item
+          style={{ display: 'inline-flex', height: '45px' }}
+        >
+          <Image
+            src={theme.palette.mode === ThemeMode.DARK ? logoDark : logo}
+            alt="Colonymon"
+            width={45}
+            height={45}
+          />
+        </Grid>
+        <Grid item>Colonymon</Grid>
       </Grid>
-      <Grid item >
-        Colonymon
-      </Grid>
-    </Grid>
-   </>
+    </>
   );
 };
 
