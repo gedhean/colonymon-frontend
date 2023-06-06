@@ -29,6 +29,7 @@ import MonthlyBarChart from 'sections/dashboard/default/MonthlyBarChart';
 import ReportAreaChart from 'sections/dashboard/default/ReportAreaChart';
 import SalesChart from 'sections/dashboard/SalesChart';
 import OrdersTable from 'sections/dashboard/default/OrdersTable';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -76,13 +77,14 @@ const status = [
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
+  const [welcomeDismissed] = useLocalStorage('welcomeBanner', false);
 
   return (
     <Page title="Dashboard">
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-        <Grid item xs={12}>
+        {!welcomeDismissed && <Grid item xs={12} >
           <WelcomeBanner />
-        </Grid>
+        </Grid>}
         {/* row 1 */}
         <Grid item xs={12} sx={{ mb: -2.25 }}>
           <Typography variant="h5">Dashboard</Typography>

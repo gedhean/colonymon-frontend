@@ -24,7 +24,17 @@ export default function useLocalStorage(key, defaultValue) {
   const setValueInLocalStorage = (newValue) => {
     setValue((currentValue) => {
       const result = typeof newValue === 'function' ? newValue(currentValue) : newValue;
-      if (typeof window !== 'undefined') localStorage.setItem(key, JSON.stringify(result));
+      if (typeof window !== 'undefined') {
+        const resultToStore = JSON.stringify(result);
+        localStorage.setItem(key, resultToStore);
+
+        // dispatch event so that other tabs if open can listen to storage change
+        window.dispatchEvent(new StorageEvent('storage', {
+          key,
+          newValue: resultToStore,
+          storageArea: localStorage
+        }));
+      }
       return result;
     });
   };
