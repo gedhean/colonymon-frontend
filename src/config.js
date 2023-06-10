@@ -99,7 +99,25 @@ const config = {
    * 'ltr' (default) - ThemeDirection.LTR
    * 'rtl' - ThemeDirection.RTL
    */
-  themeDirection: ThemeDirection.LTR
+  themeDirection: ThemeDirection.LTR,
+
+  /**
+   * Weather default location
+   * Fonte: https://geocoding-api.open-meteo.com/v1/search?name=fortaleza
+   */
+  location: {
+    id: 3399415,
+    name: 'Fortaleza',
+    latitude: -3.71722,
+    longitude: -38.54306,
+    elevation: 18,
+    feature_code: 'PPLA',
+    country_code: 'BR',
+    timezone: 'America/Fortaleza',
+    population: 2400000,
+    country_id: 3469034,
+    country: 'Brazil'
+  }
 };
 
 export default config;
