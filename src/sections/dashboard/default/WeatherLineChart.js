@@ -34,7 +34,7 @@ const chartOptions = {
   stroke: {
     curve: 'smooth',
     width: 1
-  },
+  }
 };
 
 // ==============================|| APEXCHART - LINE ||============================== //
@@ -46,6 +46,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
 
   const line = theme.palette.divider;
   const { primary, secondary } = theme.palette.text;
+  const bgColor = theme.palette.background.paper;
   const grey200 = theme.palette.grey[200];
   const humidityColor = theme.palette.info.main;
   const temperatureColor = theme.palette.error.main;
@@ -135,10 +136,12 @@ const WeatherLineChart = ({ latitude, longitude }) => {
       annotations: {
         xaxis: [
           {
-            x: new Date().getTime() - (new Date().getTimezoneOffset() * 60 * 1000),
+            x:
+              new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000,
             borderColor: primary,
             label: {
               style: {
+                background: bgColor,
                 color: primary
               },
               text: 'Hora Atual'
@@ -150,7 +153,19 @@ const WeatherLineChart = ({ latitude, longitude }) => {
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
     }));
-  }, [mode, primary, line, grey200, secondary, weather.data.time, temperatureColor, humidityColor, uvColor, theme.typography.fontWeightRegular]);
+  }, [
+    mode,
+    primary,
+    line,
+    grey200,
+    secondary,
+    weather.data.time,
+    temperatureColor,
+    humidityColor,
+    uvColor,
+    theme.typography.fontWeightRegular,
+    bgColor
+  ]);
 
   useEffect(() => {
     setSeries([
@@ -164,7 +179,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
       },
       {
         name: 'Índice UV',
-        data: weather.data.uv,
+        data: weather.data.uv
       }
     ]);
   }, [weather.data.temperature, weather.data.humidity, weather.data.uv]);
