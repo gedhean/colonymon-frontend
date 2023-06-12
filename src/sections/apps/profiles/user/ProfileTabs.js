@@ -6,7 +6,17 @@ import NextLink from 'next/link';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, FormLabel, Grid, TextField, Menu, MenuItem, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Divider,
+  FormLabel,
+  Grid,
+  TextField,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography
+} from '@mui/material';
 
 // project import
 import useUser from 'hooks/useUser';
@@ -14,10 +24,10 @@ import MainCard from 'components/MainCard';
 import Avatar from 'components/@extended/Avatar';
 import IconButton from 'components/@extended/IconButton';
 import ProfileTab from './ProfileTab';
-import { facebookColor, linkedInColor, twitterColor, ThemeMode } from 'config';
+import { ThemeMode } from 'config';
 
 // assets
-import { FacebookFilled, LinkedinFilled, MoreOutlined, TwitterSquareFilled, CameraOutlined } from '@ant-design/icons';
+import { MoreOutlined, CameraOutlined } from '@ant-design/icons';
 
 // ==============================|| USER PROFILE - TAB CONTENT ||============================== //
 
@@ -78,7 +88,11 @@ const ProfileTabs = ({ focusInput }) => {
                 horizontal: 'right'
               }}
             >
-              <NextLink href="/apps/profiles/user/personal" passHref legacyBehavior>
+              <NextLink
+                href="/apps/profiles/user/personal"
+                passHref
+                legacyBehavior
+              >
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -106,13 +120,22 @@ const ProfileTabs = ({ focusInput }) => {
                 cursor: 'pointer'
               }}
             >
-              {user && <Avatar alt={user.name} src={avatar} sx={{ width: 124, height: 124, border: '1px dashed' }} />}
+              {user && (
+                <Avatar
+                  alt={user.name}
+                  src={avatar}
+                  sx={{ width: 124, height: 124, border: '1px dashed' }}
+                />
+              )}
               <Box
                 sx={{
                   position: 'absolute',
                   top: 0,
                   left: 0,
-                  backgroundColor: theme.palette.mode === ThemeMode.DARK ? 'rgba(255, 255, 255, .75)' : 'rgba(0,0,0,.65)',
+                  backgroundColor:
+                    theme.palette.mode === ThemeMode.DARK
+                      ? 'rgba(255, 255, 255, .75)'
+                      : 'rgba(0,0,0,.65)',
                   width: '100%',
                   height: '100%',
                   opacity: 0,
@@ -122,8 +145,15 @@ const ProfileTabs = ({ focusInput }) => {
                 }}
               >
                 <Stack spacing={0.5} alignItems="center">
-                  <CameraOutlined style={{ color: theme.palette.secondary.lighter, fontSize: '2rem' }} />
-                  <Typography sx={{ color: 'secondary.lighter' }}>Upload</Typography>
+                  <CameraOutlined
+                    style={{
+                      color: theme.palette.secondary.lighter,
+                      fontSize: '2rem'
+                    }}
+                  />
+                  <Typography sx={{ color: 'secondary.lighter' }}>
+                    Upload
+                  </Typography>
                 </Stack>
               </Box>
             </FormLabel>
@@ -141,29 +171,23 @@ const ProfileTabs = ({ focusInput }) => {
                 <Typography color="secondary">{user.role}</Typography>
               </Stack>
             )}
-            <Stack direction="row" spacing={3} sx={{ '& svg': { fontSize: '1.15rem', cursor: 'pointer' } }}>
-              <TwitterSquareFilled style={{ color: twitterColor }} />
-              <FacebookFilled style={{ color: facebookColor }} />
-              <LinkedinFilled style={{ color: linkedInColor }} />
-            </Stack>
           </Stack>
         </Grid>
         <Grid item sm={3} sx={{ display: { sm: 'block', md: 'none' } }} />
         <Grid item xs={12} sm={6} md={12}>
-          <Stack direction="row" justifyContent="space-around" alignItems="center">
+          <Stack
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+          >
             <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">86</Typography>
-              <Typography color="secondary">Post</Typography>
+              <Typography variant="h5">10</Typography>
+              <Typography color="secondary">Apiários</Typography>
             </Stack>
             <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">40</Typography>
-              <Typography color="secondary">Project</Typography>
-            </Stack>
-            <Divider orientation="vertical" flexItem />
-            <Stack spacing={0.5} alignItems="center">
-              <Typography variant="h5">4.5K</Typography>
-              <Typography color="secondary">Members</Typography>
+              <Typography variant="h5">140</Typography>
+              <Typography color="secondary">Colmeias</Typography>
             </Stack>
           </Stack>
         </Grid>

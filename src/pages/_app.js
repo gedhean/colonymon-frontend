@@ -19,7 +19,7 @@ import ScrollTop from 'components/ScrollTop';
 // import RTLLayout from 'components/RTLLayout';
 import Snackbar from 'components/@extended/Snackbar';
 import Notistack from 'components/third-party/Notistack';
-// import { ConfigProvider } from 'contexts/ConfigContext';
+import { ConfigProvider } from 'contexts/ConfigContext';
 import { store } from 'store';
 import ThemeCustomization from 'themes';
 
@@ -28,24 +28,24 @@ export default function App({ Component, pageProps }) {
 
   return (
     <ReduxProvider store={store}>
-      {/* <ConfigProvider> */}
-      <ThemeCustomization>
-        {/* <RTLLayout> */}
-        <Locales>
-          <ScrollTop>
-            <SessionProvider session={pageProps.session} refetchInterval={0}>
-              <>
-                <Notistack>
-                  <Snackbar />
-                  {getLayout(<Component {...pageProps} />)}
-                </Notistack>
-              </>
-            </SessionProvider>
-          </ScrollTop>
-        </Locales>
-        {/* </RTLLayout> */}
-      </ThemeCustomization>
-      {/* </ConfigProvider> */}
+      <ConfigProvider>
+        <ThemeCustomization>
+          {/* <RTLLayout> */}
+          <Locales>
+            <ScrollTop>
+              <SessionProvider session={pageProps.session} refetchInterval={0}>
+                <>
+                  <Notistack>
+                    <Snackbar />
+                    {getLayout(<Component {...pageProps} />)}
+                  </Notistack>
+                </>
+              </SessionProvider>
+            </ScrollTop>
+          </Locales>
+          {/* </RTLLayout> */}
+        </ThemeCustomization>
+      </ConfigProvider>
     </ReduxProvider>
   );
 }

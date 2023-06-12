@@ -5,22 +5,24 @@ import { useRouter } from 'next/router';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import {
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText
+} from '@mui/material';
 
 // assets
-import { CreditCardOutlined, LockOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LockOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 
 function getPathIndex(asPath) {
   let selectedTab = 0;
   switch (asPath) {
-    case '/apps/profiles/user/payment':
+    case '/apps/profiles/user/password':
       selectedTab = 1;
       break;
-    case '/apps/profiles/user/password':
-      selectedTab = 2;
-      break;
     case '/apps/profiles/user/settings':
-      selectedTab = 3;
+      selectedTab = 2;
       break;
     case '/apps/profiles/user/personal':
     default:
@@ -47,26 +49,38 @@ const ProfileTab = () => {
   }, [asPath]);
 
   return (
-    <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32, color: theme.palette.grey[500] } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={() => handleListItemClick(0, '/apps/profiles/user/personal')}>
+    <List
+      component="nav"
+      sx={{
+        p: 0,
+        '& .MuiListItemIcon-root': {
+          minWidth: 32,
+          color: theme.palette.grey[500]
+        }
+      }}
+    >
+      <ListItemButton
+        selected={selectedIndex === 0}
+        onClick={() => handleListItemClick(0, '/apps/profiles/user/personal')}
+      >
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="Personal Information" />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 1} onClick={() => handleListItemClick(1, '/apps/profiles/user/payment')}>
-        <ListItemIcon>
-          <CreditCardOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Payment" />
-      </ListItemButton>
-      <ListItemButton selected={selectedIndex === 2} onClick={() => handleListItemClick(2, '/apps/profiles/user/password')}>
+      <ListItemButton
+        selected={selectedIndex === 1}
+        onClick={() => handleListItemClick(1, '/apps/profiles/user/password')}
+      >
         <ListItemIcon>
           <LockOutlined />
         </ListItemIcon>
         <ListItemText primary="Change Password" />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 3} onClick={() => handleListItemClick(3, '/apps/profiles/user/settings')}>
+      <ListItemButton
+        selected={selectedIndex === 2}
+        onClick={() => handleListItemClick(2, '/apps/profiles/user/settings')}
+      >
         <ListItemIcon>
           <SettingOutlined />
         </ListItemIcon>
