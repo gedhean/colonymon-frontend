@@ -22,7 +22,7 @@ const config = {
       id: 'profile',
       title: <FormattedMessage id="profile" />,
       type: 'item',
-      url: '/profile',
+      url: '/apps/profiles/user/personal',
       icon: icons.UserOutlined
     },
   ]
