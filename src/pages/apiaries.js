@@ -1,20 +1,23 @@
 // material-ui
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 // project imports
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
+import ApiaryTable from 'sections/apiaries/ApiaryTable';
 
 // ==============================|| Apiarios ||============================== //
 
 const Apiaries = () => (
   <Page title="Apiarios">
-    <MainCard title="Apiários">
-      <Typography variant="body2">
-        Apiários
-      </Typography>
-    </MainCard>
+    <Grid container spacing={3}>
+      <Grid item xs={12}>
+        <MainCard title="Apiários" content={false}>
+          <ApiaryTable />
+        </MainCard>
+      </Grid>
+    </Grid>
   </Page>
 );
 
