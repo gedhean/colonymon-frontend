@@ -23,9 +23,9 @@ import isBlank from 'utils/isBlank';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
+  const { location: defaultLocation } = useConfig();
   const [slot, setSlot] = useState('week');
   const [location, setLocation] = useState(defaultLocation);
-  const { location: defaultLocation } = useConfig();
   const [welcomeDismissed] = useLocalStorage('welcomeBanner', false);
 
   const handleLocationChange = (location) => {
