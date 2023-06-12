@@ -5,7 +5,7 @@ import Image from 'next/legacy/image';
 import { useTheme } from '@mui/material/styles';
 
 // project-imports
-import { ThemeMode } from "config";
+import { ThemeMode } from 'config';
 
 /**
  *
@@ -13,9 +13,8 @@ import { ThemeMode } from "config";
  *
  **/
 
-const logoIconDark = '/assets/images/logo-dark.svg';
-const logoIcon = '/assets/images/logo.svg';
-
+const logoIconDark = '/assets/images/logo.png';
+const logoIcon = '/assets/images/logo.png';
 
 // ==============================|| LOGO ICON SVG ||============================== //
 
@@ -25,8 +24,13 @@ const LogoIcon = () => {
   return (
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
-    */
-    <Image src={theme.palette.mode === ThemeMode.DARK ? logoIconDark : logoIcon} alt="Colonymon" width={129} height={129} />
+     */
+    <Image
+      src={theme.palette.mode === ThemeMode.DARK ? logoIconDark : logoIcon}
+      alt="Colonymon"
+      width={129}
+      height={129}
+    />
   );
 };
 
