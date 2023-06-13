@@ -41,23 +41,23 @@ function createData(
 }
 
 const rows = [
-  createData(84564564, "Flavor Been", 76, 27, 75, 0, 0),
-  createData(98764564, "Jaucou", 76, 20, 78, 1, 1),
-  createData(98756325, "Human Dubs", 74, 23, 79, 1, 1),
-  createData(98652366, "Foncarow", 70, 31, 72, 2, 1),
-  createData(13286564, "Psycobee", 70, 17, 55, 2, 0),
-  createData(86739658, "Honey Favor", 30, 20, 70, 2, 2),
-  createData(13256498, "Cowmay Foo", 50, 22, 50, 2, 1),
-  createData(98753263, "Barzory", 60, 20, 20, 0, 2),
-  createData(98753275, "Chevawsky", 22, 11, 33, 1, 1),
-  createData(98753221, "Chairmen King", 50, 40, 20, 1, 0),
-  createData(98753211, "Chairmen King", 50, 21, 23, 0, 1),
-  createData(98753321, "Chairmen King", 30, 34, 23, 2, 1),
-  createData(98253221, "Chairmen King", 35, 20, 20, 2, 1),
-  createData(98423291, "Chairmen King", 15, 20, 20, 0, 0),
-  createData(98234291, "Chairmen King", 25, 20, 29, 1, 0),
-  createData(98356291, "Chairmen King", 53, 20, 25, 1, 1),
-  createData(98345291, "Chairmen King", 31, 30, 31, 0, 1),
+  createData(84564564, "Flavor Been", 76, 27, 75, 0, 0, `06/10/2023`),
+  createData(98764564, "Jaucou", 76, 20, 78, 1, 1, `06/10/2023`),
+  createData(98756325, "Human Dubs", 74, 23, 79, 1, 1, `06/10/2023`),
+  createData(98652366, "Foncarow", 70, 31, 72, 2, 1, `06/10/2023`),
+  createData(13286564, "Psycobee", 70, 17, 55, 2, 0, `06/1/2023`),
+  createData(86739658, "Honey Favor", 30, 20, 70, 2, 2, `06/10/2023`),
+  createData(13256498, "Cowmay Foo", 50, 22, 50, 2, 1, `06/10/2023`),
+  createData(98753263, "Barzory", 60, 20, 20, 0, 2, `06/10/2023`),
+  createData(98753275, "Chevawsky", 22, 11, 33, 1, 1, `06/10/2023`),
+  createData(98753221, "Chairmen King", 50, 40, 20, 1, 1, `06/10/2023`),
+  createData(98753211, "Chairmen King", 50, 21, 23, 0, 1, `06/10/2023`),
+  createData(98753321, "Chairmen King", 30, 34, 23, 2, 1, `06/10/2023`),
+  createData(98253221, "Chairmen King", 35, 20, 20, 2, 1, `06/10/2023`),
+  createData(98423291, "Chairmen King", 15, 20, 20, 0, 0, `06/10/2023`),
+  createData(98234291, "Chairmen King", 25, 20, 29, 0, 0, `06/10/2023`),
+  createData(98356291, "Chairmen King", 53, 20, 25, 0, 1, `06/10/2023`),
+  createData(98345291, "Chairmen King", 31, 30, 31, 0, 1, `06/10/2023`),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -243,9 +243,17 @@ const HiveTemperature = ({ temperature }) => {
 // ==============================|| HIVE TABLE -  LAST UPDATE ||============================== //
 
 const HiveLastUpdate = ({ update }) => {
+  let date1 = new Date();
+  const date2 = new Date(update);
+  let formatedDate = new Date(update).toLocaleDateString();
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>{update}</Typography>
+    <Stack direction="column" spacing={-3} alignItems="left">
+      <Typography>{formatedDate}</Typography> <br />
+      <Typography variant="caption" color="secondary.main">
+        {diffDays} dias atrás.
+      </Typography>
     </Stack>
   );
 };
