@@ -61,6 +61,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
       colors: [temperatureColor, humidityColor, uvColor],
       xaxis: {
         type: 'datetime',
+        format: 'HH:mm',
         categories: weather.data.time,
         title: {
           text: 'Hora'
