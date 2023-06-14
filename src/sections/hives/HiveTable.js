@@ -26,6 +26,7 @@ import {
 
 // project import
 import Dot from "components/@extended/Dot";
+import { fontWeight } from "../../../node_modules/@mui/system/index";
 
 function createData(
   id,
@@ -100,7 +101,7 @@ const headCells = [
   {
     id: "name",
     align: "left",
-    disablePadding: true,
+    disablePadding: "normal",
     label: "Nome",
   },
   {
@@ -124,7 +125,7 @@ const headCells = [
   {
     id: "health",
     align: "left",
-    disablePadding: false,
+    disablePadding: "normal",
     label: "Saúde",
   },
   {
@@ -224,8 +225,12 @@ const HiveHealth = ({ health }) => {
   }
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Chip label={title} color={color} />
+    <Stack useFlexGap direction="row" spacing={1} alignItems="center">
+      <Chip
+        sx={{ width: "100%", color: "secondary.dark", fontWeight: "medium" }}
+        label={title}
+        color={color}
+      />
     </Stack>
   );
 };
@@ -243,9 +248,17 @@ const HiveTemperature = ({ temperature }) => {
 // ==============================|| HIVE TABLE -  LAST UPDATE ||============================== //
 
 const HiveLastUpdate = ({ update }) => {
+  let date1 = new Date();
+  const date2 = new Date(update);
+  let formattedDate = new Date(update).toLocaleDateString();
+  const diffTime = Math.abs(date2 - date1);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>{update}</Typography>
+    <Stack direction="column" spacing={-3} alignItems="left">
+      <Typography>{formattedDate}</Typography> <br />
+      <Typography variant="caption" color="secondary.main">
+        {diffDays} dias atrás.
+      </Typography>
     </Stack>
   );
 };
@@ -274,7 +287,7 @@ const HiveWeight = ({ weight }) => {
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
 
-export default function ApiaryTable() {
+export default function HiveTable() {
   const [order] = useState("asc");
   const [orderBy] = useState("id");
   const [page, setPage] = useState(DEFAULT_PAGE);

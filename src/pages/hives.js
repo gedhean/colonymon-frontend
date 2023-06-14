@@ -1,11 +1,11 @@
 // material-ui
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
 // project imports
 import Layout from "layout";
 import Page from "components/Page";
 import MainCard from "components/MainCard";
-import ApiaryTable from "sections/apiaries/hives/HiveTable";
+import ApiaryTable from "sections/hives/HiveTable";
 
 // / ==============================|| Apiarios ||==============================
 

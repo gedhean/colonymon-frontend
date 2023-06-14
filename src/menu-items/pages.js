@@ -1,8 +1,8 @@
 // third-party
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from "react-intl";
 
 // assets
-import { DashboardOutlined, BoxPlotOutlined } from '@ant-design/icons';
+import { DashboardOutlined, BoxPlotOutlined } from "@ant-design/icons";
 
 // icons
 const icons = { DashboardOutlined, BoxPlotOutlined };
@@ -10,27 +10,35 @@ const icons = { DashboardOutlined, BoxPlotOutlined };
 // ==============================|| MENU ITEMS - PAGES ||============================== //
 
 const pages = {
-  id: 'group-pages',
+  id: "group-pages",
   title: <FormattedMessage id="pages" />,
-  type: 'group',
+  type: "group",
   children: [
     {
-      id: 'dashboard',
+      id: "dashboard",
       title: <FormattedMessage id="dashboard" />,
-      type: 'item',
-      url: '/dashboard',
+      type: "item",
+      url: "/dashboard",
       icon: icons.DashboardOutlined,
       target: false,
     },
     {
-      id: 'apiaries',
+      id: "apiaries",
       title: <FormattedMessage id="apiaries" />,
-      type: 'item',
-      url: '/apiaries',
+      type: "item",
+      url: "/apiaries",
       icon: icons.BoxPlotOutlined,
       target: false,
-    }
-  ]
+    },
+    {
+      id: "hives",
+      title: <FormattedMessage id="hives" />,
+      type: "item",
+      url: "/hives",
+      icon: icons.BoxPlotOutlined,
+      target: false,
+    },
+  ],
 };
 
 export default pages;
