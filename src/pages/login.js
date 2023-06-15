@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // next
 import NextLink from 'next/link';
 import { getProviders, getCsrfToken } from 'next-auth/react';
@@ -14,16 +17,24 @@ import AuthWrapper from 'sections/auth/AuthWrapper';
 import AuthLogin from 'sections/auth/auth-forms/AuthLogin';
 
 export default function SignIn({ providers, csrfToken }) {
+  const { formatMessage } = useIntl();
   return (
-    <Page title="Login">
+    <Page title={formatMessage({ id: 'login' })}>
       <AuthWrapper>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Stack direction="row" justifyContent="space-between" alignItems="baseline" sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
-              <Typography variant="h3">Login</Typography>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="baseline"
+              sx={{ mb: { xs: -0.5, sm: 0.5 } }}
+            >
+              <Typography variant="h3">
+                <FormattedMessage id="login" />
+              </Typography>
               <NextLink href="/register" passHref legacyBehavior>
                 <Link variant="body1" color="primary">
-                  Don&apos;t have an account?
+                  <FormattedMessage id="createaccount" />
                 </Link>
               </NextLink>
             </Stack>

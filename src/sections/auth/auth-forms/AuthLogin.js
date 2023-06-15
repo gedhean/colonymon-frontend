@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // next
 import Image from 'next/legacy/image';
 import NextLink from 'next/link';
@@ -45,6 +48,7 @@ const Google = '/assets/images/icons/google.svg';
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
 const AuthLogin = ({ providers, csrfToken }) => {
+  const { formatMessage } = useIntl();
   const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [checked, setChecked] = React.useState(false);
   const [capsWarning, setCapsWarning] = React.useState(false);
@@ -77,8 +81,23 @@ const AuthLogin = ({ providers, csrfToken }) => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          email: Yup.string()
+            .email(formatMessage({ id: 'invalid-email' }))
+            .max(255)
+            .required(
+              formatMessage(
+                { id: 'forms-is-required' },
+                { field: formatMessage({ id: 'email' }) }
+              )
+            ),
+          password: Yup.string()
+            .max(255)
+            .required(
+              formatMessage(
+                { id: 'forms-is-required' },
+                { field: formatMessage({ id: 'password' }) }
+              )
+            )
         })}
         onSubmit={(values, { setErrors, setSubmitting }) => {
           signIn('login', {
@@ -96,13 +115,23 @@ const AuthLogin = ({ providers, csrfToken }) => {
           });
         }}
       >
-        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        {({
+          errors,
+          handleBlur,
+          handleChange,
+          handleSubmit,
+          isSubmitting,
+          touched,
+          values
+        }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login">
+                    <FormattedMessage id="email" />
+                  </InputLabel>
                   <OutlinedInput
                     id="email-login"
                     type="email"
@@ -110,12 +139,18 @@ const AuthLogin = ({ providers, csrfToken }) => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder={formatMessage(
+                      { id: 'forms-enter' },
+                      { field: formatMessage({ id: 'email' }) }
+                    )}
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
                   />
                   {touched.email && errors.email && (
-                    <FormHelperText error id="standard-weight-helper-text-email-login">
+                    <FormHelperText
+                      error
+                      id="standard-weight-helper-text-email-login"
+                    >
                       {errors.email}
                     </FormHelperText>
                   )}
@@ -123,7 +158,9 @@ const AuthLogin = ({ providers, csrfToken }) => {
               </Grid>
               <Grid item xs={12}>
                 <Stack spacing={1}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login">
+                    <FormattedMessage id="password" />
+                  </InputLabel>
                   <OutlinedInput
                     fullWidth
                     color={capsWarning ? 'warning' : 'primary'}
@@ -147,19 +184,33 @@ const AuthLogin = ({ providers, csrfToken }) => {
                           edge="end"
                           color="secondary"
                         >
-                          {showPassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
+                          {showPassword ? (
+                            <EyeOutlined />
+                          ) : (
+                            <EyeInvisibleOutlined />
+                          )}
                         </IconButton>
                       </InputAdornment>
                     }
-                    placeholder="Enter password"
+                    placeholder={formatMessage(
+                      { id: 'forms-enter' },
+                      { field: formatMessage({ id: 'password' }) }
+                    )}
                   />
                   {capsWarning && (
-                    <Typography variant="caption" sx={{ color: 'warning.main' }} id="warning-helper-text-password-login">
+                    <Typography
+                      variant="caption"
+                      sx={{ color: 'warning.main' }}
+                      id="warning-helper-text-password-login"
+                    >
                       Caps lock on!
                     </Typography>
                   )}
                   {touched.password && errors.password && (
-                    <FormHelperText error id="standard-weight-helper-text-password-login">
+                    <FormHelperText
+                      error
+                      id="standard-weight-helper-text-password-login"
+                    >
                       {errors.password}
                     </FormHelperText>
                   )}
@@ -167,7 +218,12 @@ const AuthLogin = ({ providers, csrfToken }) => {
               </Grid>
 
               <Grid item xs={12} sx={{ mt: -1 }}>
-                <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={2}
+                >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -178,11 +234,21 @@ const AuthLogin = ({ providers, csrfToken }) => {
                         size="small"
                       />
                     }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
+                    label={
+                      <Typography variant="h6">
+                        <FormattedMessage id="remember-me" />
+                      </Typography>
+                    }
                   />
-                  <NextLink href={session ? '/auth/forgot-password' : '/forgot-password'} passHref legacyBehavior>
+                  <NextLink
+                    href={
+                      session ? '/auth/forgot-password' : '/forgot-password'
+                    }
+                    passHref
+                    legacyBehavior
+                  >
                     <Link variant="h6" color="text.primary">
-                      Forgot Password?
+                      <FormattedMessage id="forgot-password" />
                     </Link>
                   </NextLink>
                 </Stack>
@@ -194,8 +260,16 @@ const AuthLogin = ({ providers, csrfToken }) => {
               )}
               <Grid item xs={12}>
                 <AnimateButton>
-                  <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
+                  <Button
+                    disableElevation
+                    disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  >
+                    <FormattedMessage id="login" />
                   </Button>
                 </AnimateButton>
               </Grid>
@@ -203,7 +277,7 @@ const AuthLogin = ({ providers, csrfToken }) => {
           </form>
         )}
       </Formik>
-      <Divider sx={{ mt: 2 }}>
+      {/* <Divider sx={{ mt: 2 }}>
         <Typography variant="caption"> Login with</Typography>
       </Divider>
       {providers && (
@@ -211,7 +285,13 @@ const AuthLogin = ({ providers, csrfToken }) => {
           direction="row"
           spacing={matchDownSM ? 1 : 2}
           justifyContent={matchDownSM ? 'space-around' : 'space-between'}
-          sx={{ mt: 3, '& .MuiButton-startIcon': { mr: matchDownSM ? 0 : 1, ml: matchDownSM ? 0 : -0.5 } }}
+          sx={{
+            mt: 3,
+            '& .MuiButton-startIcon': {
+              mr: matchDownSM ? 0 : 1,
+              ml: matchDownSM ? 0 : -0.5
+            }
+          }}
         >
           {Object.values(providers).map((provider) => {
             if (provider.id === 'login' || provider.id === 'register') {
@@ -224,8 +304,17 @@ const AuthLogin = ({ providers, csrfToken }) => {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!matchDownSM}
-                    startIcon={<Image src={Google} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
+                    startIcon={
+                      <Image
+                        src={Google}
+                        alt="Twitter"
+                        width={16}
+                        height={16}
+                      />
+                    }
+                    onClick={() =>
+                      signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })
+                    }
                   >
                     {!matchDownSM && 'Google'}
                   </Button>
@@ -235,8 +324,12 @@ const AuthLogin = ({ providers, csrfToken }) => {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!matchDownSM}
-                    startIcon={<Image src={Auth0} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
+                    startIcon={
+                      <Image src={Auth0} alt="Twitter" width={16} height={16} />
+                    }
+                    onClick={() =>
+                      signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })
+                    }
                   >
                     {!matchDownSM && 'Auth0'}
                   </Button>
@@ -246,8 +339,17 @@ const AuthLogin = ({ providers, csrfToken }) => {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!matchDownSM}
-                    startIcon={<Image src={Cognito} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
+                    startIcon={
+                      <Image
+                        src={Cognito}
+                        alt="Twitter"
+                        width={16}
+                        height={16}
+                      />
+                    }
+                    onClick={() =>
+                      signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })
+                    }
                   >
                     {!matchDownSM && 'Cognito'}
                   </Button>
@@ -261,7 +363,7 @@ const AuthLogin = ({ providers, csrfToken }) => {
         <Box sx={{ mt: 3 }}>
           <FirebaseSocial />
         </Box>
-      )}
+      )} */}
     </>
   );
 };
