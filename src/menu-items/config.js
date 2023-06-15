@@ -15,7 +15,7 @@ const icons = {
 
 const config = {
   id: 'config',
-  title: <FormattedMessage id="configs" />,
+  title: <FormattedMessage id="settings" />,
   type: 'group',
   children: [
     {

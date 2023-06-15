@@ -1,5 +1,8 @@
 import { useState, useMemo } from 'react';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // material-ui
 import {
   Accordion,
@@ -24,6 +27,7 @@ import useConfig from 'hooks/useConfig';
 // ==============================|| TAB - SETTINGS ||============================== //
 
 const TabSettings = () => {
+  const { formatMessage } = useIntl();
   const { mode, i18n } = useConfig();
 
   // eslint-disable-next-line
@@ -34,7 +38,7 @@ const TabSettings = () => {
   const handleToggle = (value) => () => {};
 
   return (
-    <MainCard title="Settings">
+    <MainCard title={formatMessage({ id: 'settings' })}>
       <Box>
         <Accordion defaultExpanded>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
@@ -50,10 +54,10 @@ const TabSettings = () => {
               </IconButton>
               <Stack>
                 <Typography variant="subtitle1" color="textPrimary">
-                  Modo do Tema
+                  <FormattedMessage id="theme-mode" />
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  Escolha entre o modo claro e escuro
+                  <FormattedMessage id="theme-mode-description" />
                 </Typography>
               </Stack>
             </Stack>
@@ -74,10 +78,10 @@ const TabSettings = () => {
               </IconButton>
               <Stack>
                 <Typography variant="subtitle1" color="textPrimary">
-                  Idioma
+                  <FormattedMessage id="language" />
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  Escolha o idioma do sistema
+                  <FormattedMessage id="language-description" />
                 </Typography>
               </Stack>
             </Stack>
@@ -94,9 +98,11 @@ const TabSettings = () => {
         sx={{ mt: 2.5 }}
       >
         <Button variant="outlined" color="secondary">
-          Cancel
+          <FormattedMessage id="cancel" />
         </Button>
-        <Button variant="contained">Save</Button>
+        <Button variant="contained">
+          <FormattedMessage id="save" />
+        </Button>
       </Stack>
     </MainCard>
   );
