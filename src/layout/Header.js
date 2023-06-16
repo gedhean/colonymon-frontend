@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
 
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // next
 import NextLink from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -31,7 +34,6 @@ import {
 import { APP_DEFAULT_PATH, ThemeMode } from 'config';
 import IconButton from 'components/@extended/IconButton';
 
-import AnimateButton from 'components/@extended/AnimateButton';
 import Logo from 'components/logo';
 
 // assets
@@ -95,32 +97,16 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
               {session ? (
                 <NextLink href={APP_DEFAULT_PATH} passHref legacyBehavior>
                   <Link className="header-link" color="white" target="_blank" underline="none">
-                    Dashboard
+                    <FormattedMessage id="dashboard" />
                   </Link>
                 </NextLink>
               ) : (
                 <NextLink href="/login" passHref legacyBehavior>
                   <Link className="header-link" color="white" target="_blank" underline="none">
-                    Login
+                    <FormattedMessage id="login" />
                   </Link>
                 </NextLink>
               )}
-              <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
-                Documentation
-              </Link>
-              <Box sx={{ display: 'inline-block' }}>
-                <AnimateButton>
-                  <Button
-                    component={Link}
-                    href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
-                    disableElevation
-                    color="primary"
-                    variant="contained"
-                  >
-                    Purchase Now
-                  </Button>
-                </AnimateButton>
-              </Box>
             </Stack>
             <Box
               sx={{
@@ -137,7 +123,7 @@ const Header = ({ handleDrawerOpen, layout = 'landing', ...others }) => {
                 {layout === 'component' && (
                   <NextLink href={APP_DEFAULT_PATH} passHref legacyBehavior>
                     <Button variant="outlined" size="small" color="warning" sx={{ mt: 0.5, height: 28 }}>
-                      Dashboard
+                      <FormattedMessage id="dashboard" />
                     </Button>
                   </NextLink>
                 )}
