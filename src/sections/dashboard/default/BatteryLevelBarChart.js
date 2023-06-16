@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect, useCallback } from 'react';
+
+// third-party
+import { useIntl } from 'react-intl';
 
 // next
 import dynamic from 'next/dynamic';
@@ -31,11 +33,11 @@ const chartOptions = {
       dataLabels: {
         position: 'top'
       }
-    },
+    }
   },
   dataLabels: {
     enabled: true,
-    formatter: (val) => val + "%",
+    formatter: (val) => val + '%'
   },
   legend: {
     show: false
@@ -47,6 +49,7 @@ const chartOptions = {
 const BatteryLevelBarChart = () => {
   const theme = useTheme();
   const { mode } = useConfig();
+  const { formatMessage } = useIntl();
 
   const { secondary } = theme.palette.text;
   const line = theme.palette.divider;
@@ -63,7 +66,7 @@ const BatteryLevelBarChart = () => {
   ]);
   const [series] = useState([
     {
-      name: 'Nível de Bateria',
+      name: formatMessage({ id: 'battery-level' }),
       data: [5, 65, 28, 100, 48, 90, 100]
     }
   ]);
@@ -108,13 +111,13 @@ const BatteryLevelBarChart = () => {
         min: 0,
         max: 100,
         labels: {
-          formatter: (val) => val + "%",
+          formatter: (val) => val + '%',
           style: {
             colors: [secondary]
           }
         },
         title: {
-          text: 'Nível de Bateria (%)',
+          text: `${formatMessage({ id: 'battery-level' })} (%)`,
           style: {
             color: secondary,
             fontWeight: theme.typography.fontWeightRegular
@@ -128,7 +131,7 @@ const BatteryLevelBarChart = () => {
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
     }));
-  }, [mode, secondary, line, theme, categories, colorLevel]);
+  }, [mode, secondary, line, theme, categories, colorLevel, formatMessage]);
 
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>

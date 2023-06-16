@@ -1,12 +1,11 @@
 // material-ui
-import { Grid } from "@mui/material";
+import { Grid } from '@mui/material';
 
 // project imports
-import Layout from "layout";
-import Page from "components/Page";
-import MainCard from "components/MainCard";
-import ApiaryTable from "sections/hives/HiveTable";
-
+import Layout from 'layout';
+import Page from 'components/Page';
+import MainCard from 'components/MainCard';
+import HiveTable from 'sections/hives/HiveTable';
 // / ==============================|| Apiarios ||==============================
 
 const Hives = () => (
@@ -14,7 +13,7 @@ const Hives = () => (
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <MainCard title="Colméias" content={false}>
-          <ApiaryTable />
+          <HiveTable />
         </MainCard>
       </Grid>
     </Grid>
