@@ -17,11 +17,36 @@ const Hives = () => (
         <MainCard title="Colméias" content={false}>
           <ApiaryTable />
         </MainCard>
-        <HiveLineChart
+        {/* <HiveLineChart
           serieName={'Temperatura'}
           formatter={'°C'}
-          formatterText={'Temperatura C°'}
+          formatterText={'Temperatura (C°)'}
+          paletteGroup={'error'}
+          color={'main'}
+          minRange={0}
+          maxRange={50}
+          title={'Temperatura'}
         />
+        <HiveLineChart
+          serieName={'Peso'}
+          formatter={'Kg'}
+          formatterText={'Peso (Kg)'}
+          paletteGroup={'warning'}
+          color={'main'}
+          minRange={0}
+          maxRange={50}
+          title={'Peso (Kg)'}
+        />
+        <HiveLineChart
+          serieName={'Umidade'}
+          formatter={' g/m³'}
+          formatterText={'Umidade (g/m³)'}
+          paletteGroup={'info'}
+          color={'main'}
+          minRange={0}
+          maxRange={50}
+          title={'Umidade (g/m³)'}
+        /> */}
       </Grid>
     </Grid>
   </Page>

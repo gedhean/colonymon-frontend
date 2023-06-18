@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 // project import
 import { ThemeMode } from 'config';
@@ -51,7 +51,16 @@ const chartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const HiveLineChart = ({ serieName, formatter, formatterText }) => {
+const HiveLineChart = ({
+  serieName,
+  formatter,
+  formatterText,
+  paletteGroup,
+  color,
+  minRange,
+  maxRange,
+  title
+}) => {
   const theme = useTheme();
   const { mode } = useConfig();
 
@@ -75,7 +84,7 @@ const HiveLineChart = ({ serieName, formatter, formatterText }) => {
     }
   ]);
 
-  const colorLevel = theme.palette.error.main;
+  const colorLevel = theme.palette[paletteGroup][color];
 
   useEffect(() => {
     setOptions((prevState) => ({
@@ -98,8 +107,8 @@ const HiveLineChart = ({ serieName, formatter, formatterText }) => {
         }
       },
       yaxis: {
-        min: 0,
-        max: 100,
+        min: minRange,
+        max: maxRange,
         show: true,
         labels: {
           formatter: (val) => val + `${formatter}`,
@@ -125,11 +134,22 @@ const HiveLineChart = ({ serieName, formatter, formatterText }) => {
   }, [mode, secondary, line, theme, categories, colorLevel]);
 
   return (
-    <Box id="chart" sx={{ bgColor: 'transparent' }}>
+    <Box
+      id="chart"
+      sx={{
+        bgColor: 'transparent',
+        border: '1px solid',
+        borderColor: line,
+        borderRadius: 4
+      }}
+    >
+      <Typography variant="h4" sx={{ ml: '25px', mb: '10px' }}>
+        {title}
+      </Typography>
       <ReactApexChart
         options={options}
         series={series}
-        height={350}
+        height={300}
         type="line"
         width="100%"
       />
