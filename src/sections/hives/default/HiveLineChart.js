@@ -11,7 +11,6 @@ import { Box } from '@mui/material';
 // project import
 import { ThemeMode } from 'config';
 import useConfig from 'hooks/useConfig';
-import { width } from '../../../../node_modules/@mui/system/index';
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false
@@ -52,7 +51,7 @@ const chartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const HiveLineChart = () => {
+const HiveLineChart = ({ serieName, formatter, formatterText }) => {
   const theme = useTheme();
   const { mode } = useConfig();
 
@@ -71,7 +70,7 @@ const HiveLineChart = () => {
   ]);
   const [series] = useState([
     {
-      name: 'Temperatura',
+      name: `${serieName}`,
       data: [25, 30, 31, 32, 33, 29, 26]
     }
   ]);
@@ -103,13 +102,13 @@ const HiveLineChart = () => {
         max: 100,
         show: true,
         labels: {
-          formatter: (val) => val + '°C',
+          formatter: (val) => val + `${formatter}`,
           style: {
             colors: [secondary]
           }
         },
         title: {
-          text: 'Temperatura (°C)',
+          text: `${formatterText}`,
           style: {
             color: secondary,
             fontWeight: theme.typography.fontWeightRegular

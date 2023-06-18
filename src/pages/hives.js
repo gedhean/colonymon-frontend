@@ -6,6 +6,7 @@ import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import ApiaryTable from 'sections/hives/HiveTable';
+import HiveLineChart from 'sections/hives/default/HiveLineChart';
 
 // / ==============================|| Apiarios ||==============================
 
@@ -16,6 +17,11 @@ const Hives = () => (
         <MainCard title="Colméias" content={false}>
           <ApiaryTable />
         </MainCard>
+        <HiveLineChart
+          serieName={'Temperatura'}
+          formatter={'°C'}
+          formatterText={'Temperatura C°'}
+        />
       </Grid>
     </Grid>
   </Page>
