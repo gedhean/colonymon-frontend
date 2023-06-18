@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react';
 // next
 import NextLink from 'next/link';
 
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -101,11 +104,11 @@ const ProfileTabs = ({ focusInput }) => {
                     });
                   }}
                 >
-                  Edit
+                  <FormattedMessage id="edit" />
                 </MenuItem>
               </NextLink>
               <MenuItem onClick={handleClose} disabled>
-                Delete
+                <FormattedMessage id="delete" />
               </MenuItem>
             </Menu>
           </Stack>
@@ -152,7 +155,7 @@ const ProfileTabs = ({ focusInput }) => {
                     }}
                   />
                   <Typography sx={{ color: 'secondary.lighter' }}>
-                    Upload
+                    <FormattedMessage id="upload" />
                   </Typography>
                 </Stack>
               </Box>
@@ -182,12 +185,16 @@ const ProfileTabs = ({ focusInput }) => {
           >
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">10</Typography>
-              <Typography color="secondary">Apiários</Typography>
+              <Typography color="secondary">
+                <FormattedMessage id="apiaries" />
+              </Typography>
             </Stack>
             <Divider orientation="vertical" flexItem />
             <Stack spacing={0.5} alignItems="center">
               <Typography variant="h5">140</Typography>
-              <Typography color="secondary">Colmeias</Typography>
+              <Typography color="secondary">
+                <FormattedMessage id="hives" />
+              </Typography>
             </Stack>
           </Stack>
         </Grid>

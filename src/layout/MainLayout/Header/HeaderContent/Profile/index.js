@@ -5,6 +5,9 @@ import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSession, signOut } from 'next-auth/react';
 
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -94,7 +97,7 @@ const Profile = () => {
   };
 
   const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+    if (anchorRef.current?.contains(event.target)) {
       return;
     }
     setOpen(false);
@@ -175,7 +178,7 @@ const Profile = () => {
                           <Stack>
                             <Typography variant="h6">{user?.name}</Typography>
                             <Typography variant="body2" color="textSecondary">
-                              UI/UX Designer
+                              <FormattedMessage id="beekeeper" />
                             </Typography>
                           </Stack>
                         </Stack>

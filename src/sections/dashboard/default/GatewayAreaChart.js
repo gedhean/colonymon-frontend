@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
+// third-party
+import { useIntl } from 'react-intl';
+
 // next
 import dynamic from 'next/dynamic';
 
@@ -17,8 +20,6 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 // chart options
 const areaChartOptions = {
   chart: {
-    // height: '200px',
-    // width: 'auto',
     type: 'area',
     toolbar: {
       show: false
@@ -41,6 +42,7 @@ const areaChartOptions = {
 const GatewayAreaChart = ({ slot }) => {
   const theme = useTheme();
   const { mode } = useConfig();
+  const { formatMessage } = useIntl();
 
   const { primary, secondary } = theme.palette.text;
   const line = theme.palette.divider;
@@ -87,6 +89,13 @@ const GatewayAreaChart = ({ slot }) => {
           style: {
             colors: [secondary]
           }
+        },
+        title: {
+          text: `${formatMessage({ id: 'availability' })} (%)`,
+          style: {
+            color: secondary,
+            fontWeight: theme.typography.fontWeightRegular
+          }
         }
       },
       grid: {
@@ -96,11 +105,11 @@ const GatewayAreaChart = ({ slot }) => {
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
     }));
-  }, [mode, primary, secondary, line, theme, slot]);
+  }, [mode, primary, secondary, line, theme, slot, formatMessage]);
 
   const [series, setSeries] = useState([
     {
-      name: 'Dispinibilidade',
+      name: formatMessage({ id: 'availability' }),
       data: [0, 86, 28, 100, 48, 90, 100]
     }
   ]);
@@ -108,11 +117,11 @@ const GatewayAreaChart = ({ slot }) => {
   useEffect(() => {
     setSeries([
       {
-        name: 'Dispinibilidade',
+        name: formatMessage({ id: 'availability' }),
         data: slot === 'month' ? [76, 85, 100, 98, 87, 100, 91, 100, 94, 86, 100, 35] : [31, 40, 28, 51, 42, 10, 100]
       }
     ]);
-  }, [slot]);
+  }, [formatMessage, slot]);
 
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>

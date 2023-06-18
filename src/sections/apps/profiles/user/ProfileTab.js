@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 // next
 import { useRouter } from 'next/router';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -66,7 +69,7 @@ const ProfileTab = () => {
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
-        <ListItemText primary="Personal Information" />
+        <ListItemText primary={<FormattedMessage id="personal-info" />} />
       </ListItemButton>
       <ListItemButton
         selected={selectedIndex === 1}
@@ -75,7 +78,7 @@ const ProfileTab = () => {
         <ListItemIcon>
           <LockOutlined />
         </ListItemIcon>
-        <ListItemText primary="Change Password" />
+        <ListItemText primary={<FormattedMessage id="reset-password" />} />
       </ListItemButton>
       <ListItemButton
         selected={selectedIndex === 2}
@@ -84,7 +87,7 @@ const ProfileTab = () => {
         <ListItemIcon>
           <SettingOutlined />
         </ListItemIcon>
-        <ListItemText primary="Settings" />
+        <ListItemText primary={<FormattedMessage id="settings" />} />
       </ListItemButton>
     </List>
   );

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // material-ui
 import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
 
@@ -23,6 +26,7 @@ import isBlank from 'utils/isBlank';
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
+  const { formatMessage } = useIntl();
   const { location: defaultLocation } = useConfig();
   const [slot, setSlot] = useState('week');
   const [location, setLocation] = useState(defaultLocation);
@@ -44,42 +48,43 @@ const DashboardDefault = () => {
 
         {/* row 1 */}
         <Grid item xs={12} sx={{ mb: -2.25 }}>
-          <Typography variant="h5">Visão Geral</Typography>
+          <Typography variant="h5">
+            <FormattedMessage id="overview" />
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title="Total Page Views"
-            count="4,42,236"
-            percentage={59.3}
-            extra="35,000"
+            title={formatMessage({ id: 'hives-health' })}
+            count="120"
+            percentage={4.1}
+            extra="5"
+            color="success"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title="Total Users"
-            count="78,250"
-            percentage={70.5}
-            extra="8,900"
+            title={formatMessage({ id: 'hives-weak' })}
+            count="12"
+            percentage={50.0}
+            extra="6"
+            color="warning"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title="Total Order"
-            count="18,800"
+            title={formatMessage({ id: 'hives-sick' })}
+            count="1"
             percentage={27.4}
             isLoss
-            color="warning"
-            extra="1,943"
+            color="error"
+            extra="5"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title="Total Sales"
-            count="$35,078"
+            title={formatMessage({ id: 'hives-total' })}
+            count="200"
             percentage={27.4}
-            isLoss
-            color="warning"
-            extra="$20,395"
           />
         </Grid>
 
@@ -93,7 +98,9 @@ const DashboardDefault = () => {
         <Grid item xs={12} md={5} lg={4}>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
-              <Typography variant="h5">Colmeias: Saúde Geral</Typography>
+              <Typography variant="h5">
+                <FormattedMessage id="chart-wellbeing" />
+              </Typography>
             </Grid>
           </Grid>
           <MainCard content={false} sx={{ mt: 1.5 }}>
@@ -105,7 +112,9 @@ const DashboardDefault = () => {
         <Grid item xs={12} md={7} lg={8}>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
-              <Typography variant="h5">Disponibilidade do Gateway</Typography>
+              <Typography variant="h5">
+                <FormattedMessage id="chart-gateway-availability" />
+              </Typography>
             </Grid>
             <Grid item>
               {/* margin-top: -1px to keep charts align horizontal */}
@@ -122,7 +131,7 @@ const DashboardDefault = () => {
                   variant={slot === 'month' ? 'outlined' : 'text'}
                   sx={{ pt: 0, pb: 0 }}
                 >
-                  Mês
+                  <FormattedMessage id="month" />
                 </Button>
                 <Button
                   size="small"
@@ -131,7 +140,7 @@ const DashboardDefault = () => {
                   variant={slot === 'week' ? 'outlined' : 'text'}
                   sx={{ pt: 0, pb: 0 }}
                 >
-                  Semana
+                  <FormattedMessage id="week" />
                 </Button>
               </Stack>
             </Grid>
@@ -153,7 +162,9 @@ const DashboardDefault = () => {
         <Grid item xs={12}>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
-              <Typography variant="h5">Nível de Bateria</Typography>
+              <Typography variant="h5">
+                <FormattedMessage id="chart-battery-level" />
+              </Typography>
             </Grid>
             <Grid item />
           </Grid>
@@ -167,14 +178,14 @@ const DashboardDefault = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h5">
-                Temperature, Umidade, Índice UV locais
+                <FormattedMessage id="chart-weather" />
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Local:{' '}
+                <FormattedMessage id="local" />:{' '}
                 {`${location?.name}${
                   location?.admin1 ? ', ' + location.admin1 : ''
                 }`}
-                . Fonte:{' '}
+                . <FormattedMessage id="source" />:{' '}
                 <Link href="https://open-meteo.com" target="_blank">
                   https://open-meteo.com
                 </Link>

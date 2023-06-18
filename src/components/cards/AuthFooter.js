@@ -1,5 +1,14 @@
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // material-ui
-import { useMediaQuery, Container, Link, Typography, Stack } from '@mui/material';
+import {
+  useMediaQuery,
+  Container,
+  Link,
+  Typography,
+  Stack
+} from '@mui/material';
 
 // ==============================|| FOOTER - AUTHENTICATION ||============================== //
 
@@ -14,43 +23,23 @@ const AuthFooter = () => {
         spacing={2}
         textAlign={matchDownSM ? 'center' : 'inherit'}
       >
-        <Typography variant="subtitle2" color="secondary" component="span">
-          This site is protected by{' '}
-          <Typography component={Link} variant="subtitle2" href="#mantis-privacy" target="_blank" underline="hover">
-            Privacy Policy
-          </Typography>
+        <Typography variant="caption">
+          &copy; Made with ❤️ by Gêdhean Alves
         </Typography>
 
-        <Stack direction={matchDownSM ? 'column' : 'row'} spacing={matchDownSM ? 1 : 3} textAlign={matchDownSM ? 'center' : 'inherit'}>
+        <Stack
+          direction={matchDownSM ? 'column' : 'row'}
+          spacing={matchDownSM ? 1 : 3}
+          textAlign={matchDownSM ? 'center' : 'inherit'}
+        >
           <Typography
             variant="subtitle2"
             color="secondary"
             component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
+            href="/about"
             underline="hover"
           >
-            Terms and Conditions
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            color="secondary"
-            component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
-            underline="hover"
-          >
-            Privacy Policy
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            color="secondary"
-            component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
-            underline="hover"
-          >
-            CA Privacy Notice
+            <FormattedMessage id="about" />
           </Typography>
         </Stack>
       </Stack>

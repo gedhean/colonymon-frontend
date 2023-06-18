@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+// third-party
+import { FormattedMessage, useIntl } from 'react-intl';
+
 // next
 import NextLink from 'next/link';
 
@@ -135,7 +138,7 @@ const Breadcrumbs = ({
                 <Typography color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
                   {icons && <HomeOutlined style={iconSX} />}
                   {icon && !icons && <HomeFilled style={{ ...iconSX, marginRight: 0 }} />}
-                  {(!icon || icons) && 'Home'}
+                  {(!icon || icons) && <FormattedMessage id="home" defaultMessage="Home" />}
                 </Typography>
               </NextLink>
               {mainContent}
