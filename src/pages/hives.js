@@ -6,7 +6,8 @@ import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import ApiaryTable from 'sections/hives/HiveTable';
-import HiveLineChart from 'sections/hives/default/HiveLineChart';
+// import HiveLineChart from 'sections/hives/default/HiveLineChart';
+// import Mock from './mocks';
 
 // / ==============================|| Apiarios ||==============================
 
@@ -18,7 +19,6 @@ const Hives = () => (
           <ApiaryTable />
         </MainCard>
         {/* <HiveLineChart
-          serieName={'Temperatura'}
           formatter={'°C'}
           formatterText={'Temperatura (C°)'}
           paletteGroup={'error'}
@@ -26,9 +26,9 @@ const Hives = () => (
           minRange={0}
           maxRange={50}
           title={'Temperatura'}
+          data={Mock.apiary1}
         />
         <HiveLineChart
-          serieName={'Peso'}
           formatter={'Kg'}
           formatterText={'Peso (Kg)'}
           paletteGroup={'warning'}
@@ -36,9 +36,9 @@ const Hives = () => (
           minRange={0}
           maxRange={50}
           title={'Peso (Kg)'}
+          data={Mock.apiary2}
         />
         <HiveLineChart
-          serieName={'Umidade'}
           formatter={' g/m³'}
           formatterText={'Umidade (g/m³)'}
           paletteGroup={'info'}
@@ -46,6 +46,7 @@ const Hives = () => (
           minRange={0}
           maxRange={50}
           title={'Umidade (g/m³)'}
+          data={Mock.apiary3}
         /> */}
       </Grid>
     </Grid>

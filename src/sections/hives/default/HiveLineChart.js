@@ -52,14 +52,14 @@ const chartOptions = {
 // ==============================|| INCOME AREA CHART ||============================== //
 
 const HiveLineChart = ({
-  serieName,
   formatter,
   formatterText,
   paletteGroup,
   color,
   minRange,
   maxRange,
-  title
+  title,
+  data
 }) => {
   const theme = useTheme();
   const { mode } = useConfig();
@@ -68,21 +68,8 @@ const HiveLineChart = ({
   const line = theme.palette.divider;
 
   const [options, setOptions] = useState(chartOptions);
-  const [categories] = useState([
-    'Horário 1',
-    'Horário 2',
-    'Horário 3',
-    'Horário 4',
-    'Horário 5',
-    'Horário 6',
-    'Horário 7'
-  ]);
-  const [series] = useState([
-    {
-      name: `${serieName}`,
-      data: [25, 30, 31, 32, 33, 29, 26]
-    }
-  ]);
+  const [categories] = useState(data.categories);
+  const [series] = useState([data.series]);
 
   const colorLevel = theme.palette[paletteGroup][color];
 
@@ -131,7 +118,19 @@ const HiveLineChart = ({
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
     }));
-  }, [mode, secondary, line, theme, categories, colorLevel]);
+  }, [
+    mode,
+    secondary,
+    line,
+    theme,
+    categories,
+    colorLevel,
+    formatter,
+    formatterText,
+    maxRange,
+    minRange,
+    data
+  ]);
 
   return (
     <Box
@@ -143,7 +142,7 @@ const HiveLineChart = ({
         borderRadius: 4
       }}
     >
-      <Typography variant="h4" sx={{ ml: '25px', mb: '10px' }}>
+      <Typography variant="h5" sx={{ ml: '25px', mb: '10px', mt: '10px' }}>
         {title}
       </Typography>
       <ReactApexChart
