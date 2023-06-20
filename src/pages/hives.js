@@ -19,8 +19,8 @@ const Hives = () => (
           <ApiaryTable />
         </MainCard>
         {/* <HiveLineChart
-          formatter={'°C'}
-          formatterText={'Temperatura (C°)'}
+          toolFormatter={'°C'}
+          formatterLegendTextY={'Temperatura (C°)'}
           paletteGroup={'error'}
           color={'main'}
           minRange={0}
@@ -29,8 +29,8 @@ const Hives = () => (
           data={Mock.apiary1}
         />
         <HiveLineChart
-          formatter={'Kg'}
-          formatterText={'Peso (Kg)'}
+          toolFormatter={'Kg'}
+          formatterLegendTextY={'Peso (Kg)'}
           paletteGroup={'warning'}
           color={'main'}
           minRange={0}
@@ -39,8 +39,8 @@ const Hives = () => (
           data={Mock.apiary2}
         />
         <HiveLineChart
-          formatter={' g/m³'}
-          formatterText={'Umidade (g/m³)'}
+          toolFormatter={' g/m³'}
+          formatterLegendTextY={'Umidade (g/m³)'}
           paletteGroup={'info'}
           color={'main'}
           minRange={0}

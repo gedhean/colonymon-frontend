@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 // next
 import dynamic from 'next/dynamic';
@@ -20,9 +20,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
 const chartOptions = {
   chart: {
     type: 'line',
-    toolbar: {
-      show: false
-    },
+
     grid: {
       show: false,
       xaxis: {
@@ -46,14 +44,29 @@ const chartOptions = {
   },
   legend: {
     show: false
-  }
+  },
+  responsive: [
+    {
+      breakpoint: 450,
+      chart: {
+        width: 280,
+        height: 280
+      },
+      options: {
+        legend: {
+          show: false,
+          position: 'bottom'
+        }
+      }
+    }
+  ]
 };
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
 const HiveLineChart = ({
-  formatter,
-  formatterText,
+  toolFormatter,
+  formatterLegendTextY,
   paletteGroup,
   color,
   minRange,
@@ -63,10 +76,9 @@ const HiveLineChart = ({
 }) => {
   const theme = useTheme();
   const { mode } = useConfig();
-
-  const { secondary } = theme.palette.text;
+  const backColor = theme.palette.background.paper;
   const line = theme.palette.divider;
-
+  const { secondary } = theme.palette.text;
   const [options, setOptions] = useState(chartOptions);
   const [categories] = useState(data.categories);
   const [series] = useState([data.series]);
@@ -77,20 +89,26 @@ const HiveLineChart = ({
     setOptions((prevState) => ({
       ...prevState,
       colors: Array.from({ length: categories.length }, () => () => colorLevel),
+      chart: {
+        background:
+          theme.palette.mode === ThemeMode.DARK
+            ? 'secondary.lighter'
+            : 'primary.lighter',
+        toolbar: {
+          show: false
+        }
+      },
       xaxis: {
         show: false,
         categories,
         axisBorder: {
           show: true,
-          color: line
+          color: secondary
         },
         labels: {
           style: {
             colors: Array.from({ length: categories.length }, () => secondary)
           }
-        },
-        axisTicks: {
-          show: false
         }
       },
       yaxis: {
@@ -98,13 +116,13 @@ const HiveLineChart = ({
         max: maxRange,
         show: true,
         labels: {
-          formatter: (val) => val + `${formatter}`,
+          formatter: (val) => val + `${toolFormatter}`,
           style: {
             colors: [secondary]
           }
         },
         title: {
-          text: `${formatterText}`,
+          text: `${formatterLegendTextY}`,
           style: {
             color: secondary,
             fontWeight: theme.typography.fontWeightRegular
@@ -125,8 +143,8 @@ const HiveLineChart = ({
     theme,
     categories,
     colorLevel,
-    formatter,
-    formatterText,
+    toolFormatter,
+    formatterLegendTextY,
     maxRange,
     minRange,
     data
@@ -136,13 +154,17 @@ const HiveLineChart = ({
     <Box
       id="chart"
       sx={{
-        bgColor: 'transparent',
+        bgcolor:
+          theme.palette.mode === ThemeMode.DARK
+            ? 'secondary.lighter'
+            : 'common.white',
         border: '1px solid',
         borderColor: line,
-        borderRadius: 4
+        borderRadius: 4,
+        padding: '0 20px'
       }}
     >
-      <Typography variant="h5" sx={{ ml: '25px', mb: '10px', mt: '10px' }}>
+      <Typography variant="h5" sx={{ ml: '25px', mb: '5px', mt: '10px' }}>
         {title}
       </Typography>
       <ReactApexChart
@@ -154,6 +176,10 @@ const HiveLineChart = ({
       />
     </Box>
   );
+};
+
+HiveLineChart.propTypes = {
+  slot: PropTypes.string
 };
 
 export default HiveLineChart;
