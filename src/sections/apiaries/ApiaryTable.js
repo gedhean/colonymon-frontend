@@ -95,16 +95,16 @@ const headCells = [
     label: 'Nome'
   },
   {
-    id: 'health',
+    id: 'latlng',
     align: 'left',
     disablePadding: false,
-    label: 'Saúde'
+    label: 'Localização'
   },
   {
-    id: 'status',
+    id: 'actions',
     align: 'left',
     disablePadding: false,
-    label: 'Status'
+    label: 'Ações'
   }
 ];
 
