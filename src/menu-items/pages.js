@@ -20,7 +20,7 @@ const pages = {
       type: 'item',
       url: '/dashboard',
       icon: icons.DashboardOutlined,
-      target: false,
+      target: false
     },
     {
       id: 'apiaries',
@@ -28,7 +28,15 @@ const pages = {
       type: 'item',
       url: '/apiaries',
       icon: icons.BoxPlotOutlined,
-      target: false,
+      target: false
+    },
+    {
+      id: 'hives',
+      title: <FormattedMessage id="hives" />,
+      type: 'item',
+      url: '/hives',
+      icon: icons.BoxPlotOutlined,
+      target: false
     }
   ]
 };
