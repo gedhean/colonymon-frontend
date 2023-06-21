@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import { useState } from "react";
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 // next
-import NextLink from "next/link";
+import NextLink from 'next/link';
 
 // material-ui
 import {
@@ -18,14 +18,14 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-} from "@mui/material";
+  Typography
+} from '@mui/material';
 
 // third-party
 // import { NumericFormat } from 'react-number-format';
 
 // project import
-import Dot from "components/@extended/Dot";
+import Dot from 'components/@extended/Dot';
 
 function createData(
   id,
@@ -41,23 +41,22 @@ function createData(
 }
 
 const rows = [
-  createData(84564564, "Flavor Been", 76, 27, 75, 0, 0, `06/10/2023`),
-  createData(98764564, "Jaucou", 76, 20, 78, 1, 1, `06/10/2023`),
-  createData(98756325, "Human Dubs", 74, 23, 79, 1, 1, `06/10/2023`),
-  createData(98652366, "Foncarow", 70, 31, 72, 2, 1, `06/10/2023`),
-  createData(13286564, "Psycobee", 70, 17, 55, 2, 0, `06/1/2023`),
-  createData(86739658, "Honey Favor", 30, 20, 70, 2, 2, `06/10/2023`),
-  createData(13256498, "Cowmay Foo", 50, 22, 50, 2, 1, `06/10/2023`),
-  createData(98753263, "Barzory", 60, 20, 20, 0, 2, `06/10/2023`),
-  createData(98753275, "Chevawsky", 22, 11, 33, 1, 1, `06/10/2023`),
-  createData(98753221, "Chairmen King", 50, 40, 20, 1, 1, `06/10/2023`),
-  createData(98753211, "Chairmen King", 50, 21, 23, 0, 1, `06/10/2023`),
-  createData(98753321, "Chairmen King", 30, 34, 23, 2, 1, `06/10/2023`),
-  createData(98253221, "Chairmen King", 35, 20, 20, 2, 1, `06/10/2023`),
-  createData(98423291, "Chairmen King", 15, 20, 20, 0, 0, `06/10/2023`),
-  createData(98234291, "Chairmen King", 25, 20, 29, 0, 0, `06/10/2023`),
-  createData(98356291, "Chairmen King", 53, 20, 25, 0, 1, `06/10/2023`),
-  createData(98345291, "Chairmen King", 31, 30, 31, 0, 1, `06/10/2023`),
+  createData(84564564, 'Flavor Been', 76, 27, 75, 0, 0, '06/10/2023'),
+  createData(98764564, 'Jaucou', 76, 20, 78, 1, 1, '06/10/2023'),
+  createData(98760564, 'Jaucolu', 76, 20, 78, 1, 1, '06/10/2023'),
+  createData(98756325, 'Human Dubs', 74, 23, 79, 1, 1, '06/10/2023'),
+  createData(98652366, 'Foncarow', 70, 31, 72, 2, 1, '06/10/2023'),
+  createData(13286564, 'Psycobee', 70, 17, 55, 2, 0, '06/10/2023'),
+  createData(86739658, 'Honey Favor', 30, 20, 70, 2, 2, '06/10/2023'),
+  createData(98753263, 'Barzory', 60, 20, 20, 0, 2, '06/10/2023'),
+  createData(98753275, 'Chevawsky', 22, 11, 33, 1, 1, '06/10/2023'),
+  createData(98753221, 'Chairmen King', 50, 40, 20, 1, 0, '06/10/2023'),
+  createData(98753211, 'Chairmen King', 50, 21, 23, 0, 1, '06/10/2023'),
+  createData(98753321, 'Chairmen King', 30, 34, 23, 2, 1, '06/10/2023'),
+  createData(98423291, 'Chairmen King', 15, 20, 20, 0, 0, '06/10/2023'),
+  createData(98234291, 'Chairmen King', 25, 20, 29, 1, 0, '06/10/2023'),
+  createData(98356291, 'Chairmen King', 53, 20, 25, 1, 1, '06/10/2023'),
+  createData(98345291, 'Chairmen King', 31, 30, 31, 0, 1, '06/10/2023')
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -71,7 +70,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === "desc"
+  return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -92,53 +91,53 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "id",
-    align: "left",
+    id: 'id',
+    align: 'left',
     disablePadding: false,
-    label: "Identificador",
+    label: 'Identificador'
   },
   {
-    id: "name",
-    align: "left",
-    disablePadding: true,
-    label: "Nome",
+    id: 'name',
+    align: 'left',
+    disablePadding: 'normal',
+    label: 'Nome'
   },
   {
-    id: "temperature",
-    align: "left",
+    id: 'temperature',
+    align: 'left',
     disablePadding: false,
-    label: "Temperatura (°C)",
+    label: 'Temperatura (°C)'
   },
   {
-    id: "humidity",
-    align: "left",
+    id: 'humidity',
+    align: 'left',
     disablePadding: false,
-    label: "Umidade (g/m³)",
+    label: 'Umidade (g/m³)'
   },
   {
-    id: "weight",
-    align: "left",
+    id: 'weight',
+    align: 'left',
     disablePadding: false,
-    label: "Peso (kg)",
+    label: 'Peso (kg)'
   },
   {
-    id: "health",
-    align: "left",
-    disablePadding: false,
-    label: "Saúde",
+    id: 'health',
+    align: 'left',
+    disablePadding: 'normal',
+    label: 'Saúde'
   },
   {
-    id: "status",
-    align: "left",
+    id: 'status',
+    align: 'left',
     disablePadding: false,
-    label: "Status do Getaway",
+    label: 'Status do Getaway'
   },
   {
-    id: "update",
-    align: "left",
+    id: 'update',
+    align: 'left',
     disablePadding: false,
-    label: "Última Atualização",
-  },
+    label: 'Última Atualização'
+  }
 ];
 
 // ==============================|| APIARY TABLE - HEADER ||============================== //
@@ -151,7 +150,7 @@ function HiveTableHead({ order, orderBy }) {
           <TableCell
             key={headCell.id}
             align={headCell.align}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             {headCell.label}
@@ -164,7 +163,7 @@ function HiveTableHead({ order, orderBy }) {
 
 HiveTableHead.propTypes = {
   order: PropTypes.any,
-  orderBy: PropTypes.string,
+  orderBy: PropTypes.string
 };
 
 // ==============================|| APIRAY TABLE - STATUS ||============================== //
@@ -175,17 +174,17 @@ const ApiaryStatus = ({ status }) => {
 
   switch (status) {
     case 0:
-      color = "error";
-      title = "Offline";
+      color = 'error';
+      title = 'Offline';
       break;
     case 1:
-      color = "success";
-      title = "Online";
+      color = 'success';
+      title = 'Online';
       break;
 
     default:
-      color = "primary";
-      title = "Descconhecido";
+      color = 'primary';
+      title = 'Descconhecido';
   }
 
   return (
@@ -197,7 +196,7 @@ const ApiaryStatus = ({ status }) => {
 };
 
 ApiaryStatus.propTypes = {
-  status: PropTypes.number,
+  status: PropTypes.number
 };
 
 // ==============================|| APIARY TABLE - HEALTH ||============================== //
@@ -207,24 +206,24 @@ const HiveHealth = ({ health }) => {
 
   switch (health) {
     case 0:
-      color = "error";
-      title = "Muito Fraca";
+      color = 'error';
+      title = 'Muito Fraca';
       break;
     case 1:
-      color = "warning";
-      title = "Fraca";
+      color = 'warning';
+      title = 'Fraca';
       break;
     case 2:
-      color = "success";
-      title = "Forte";
+      color = 'success';
+      title = 'Forte';
       break;
     default:
-      color = "secondary";
-      title = "Estado Desconhecido";
+      color = 'secondary';
+      title = 'Estado Desconhecido';
   }
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack useFlexGap direction="row" spacing={1} alignItems="center">
       <Chip label={title} color={color} />
     </Stack>
   );
@@ -245,12 +244,12 @@ const HiveTemperature = ({ temperature }) => {
 const HiveLastUpdate = ({ update }) => {
   let date1 = new Date();
   const date2 = new Date(update);
-  let formatedDate = new Date(update).toLocaleDateString();
+  let formattedDate = new Date(update).toLocaleDateString();
   const diffTime = Math.abs(date2 - date1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return (
     <Stack direction="column" spacing={-3} alignItems="left">
-      <Typography>{formatedDate}</Typography> <br />
+      <Typography>{formattedDate}</Typography> <br />
       <Typography variant="caption" color="secondary.main">
         {diffDays} dias atrás.
       </Typography>
@@ -282,9 +281,9 @@ const HiveWeight = ({ weight }) => {
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
 
-export default function ApiaryTable() {
-  const [order] = useState("asc");
-  const [orderBy] = useState("id");
+export default function HiveTable() {
+  const [order] = useState('asc');
+  const [orderBy] = useState('id');
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
 
@@ -294,19 +293,16 @@ export default function ApiaryTable() {
     setPage(DEFAULT_PAGE);
   };
 
-  console.log("rowsPerPage", rowsPerPage);
-  console.log("page", page);
-
   return (
     <Box>
       <TableContainer
         sx={{
-          width: "100%",
-          overflowX: "auto",
-          position: "relative",
-          display: "block",
-          maxWidth: "100%",
-          "& td, & th": { whiteSpace: "nowrap" },
+          width: '100%',
+          overflowX: 'auto',
+          position: 'relative',
+          display: 'block',
+          maxWidth: '100%',
+          '& td, & th': { whiteSpace: 'nowrap' }
         }}
       >
         <Table aria-labelledby="tableTitle">
@@ -322,7 +318,7 @@ export default function ApiaryTable() {
                 <TableRow
                   hover
                   role="checkbox"
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   tabIndex={-1}
                   key={row.id}
                 >
