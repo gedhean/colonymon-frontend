@@ -26,7 +26,6 @@ import {
 
 // project import
 import Dot from 'components/@extended/Dot';
-import { fontWeight } from '../../../node_modules/@mui/system/index';
 
 function createData(
   id,
