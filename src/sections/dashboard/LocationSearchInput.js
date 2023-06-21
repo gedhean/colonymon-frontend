@@ -15,8 +15,6 @@ const LocationSearchInput = ({ onChange }) => {
   const [value, setValue] = useState(null);
   const { data, loading } = useLocations(search);
 
-  console.log(value);
-
   const getLocationLabel = (option) =>
     `(${option.latitude.toFixed(2)}°E ${option.longitude.toFixed(2)}°N ${
       option.elevation

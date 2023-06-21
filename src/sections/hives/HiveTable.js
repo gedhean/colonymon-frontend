@@ -294,9 +294,6 @@ export default function HiveTable() {
     setPage(DEFAULT_PAGE);
   };
 
-  console.log('rowsPerPage', rowsPerPage);
-  console.log('page', page);
-
   return (
     <Box>
       <TableContainer
