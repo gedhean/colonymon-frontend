@@ -1,7 +1,7 @@
 // / ==============================|| Mock ||==============================
 
-const mock = {
-  apiary1: {
+const hives = {
+  hive1: {
     id: '1',
     series: {
       name: `Apiário 1`,
@@ -18,7 +18,7 @@ const mock = {
     ]
   },
 
-  apiary2: {
+  hive2: {
     id: '2',
     series: {
       name: `Apiário 2`,
@@ -34,7 +34,7 @@ const mock = {
       'Horário 7'
     ]
   },
-  apiary3: {
+  hive3: {
     id: '3',
     series: {
       name: `Apiário 3`,
@@ -52,4 +52,4 @@ const mock = {
   }
 };
 
-export default mock;
+export default hives;
