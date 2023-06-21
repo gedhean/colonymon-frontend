@@ -6,6 +6,8 @@ import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import HiveTable from 'sections/hives/HiveTable';
+import HiveLineChart from 'sections/hives/default/HiveLineChart';
+import hivesData from 'data/hives';
 // / ==============================|| Apiarios ||==============================
 
 const Hives = () => (
@@ -15,36 +17,33 @@ const Hives = () => (
         <MainCard title="Colméias" content={false}>
           <HiveTable />
         </MainCard>
-        {/* <HiveLineChart
+        <HiveLineChart
           toolFormatter={'°C'}
           formatterLegendTextY={'Temperatura (C°)'}
           paletteGroup={'error'}
-          color={'main'}
           minRange={0}
           maxRange={50}
           title={'Temperatura'}
-          data={Mock.apiary1}
+          data={hivesData.hive1}
         />
         <HiveLineChart
           toolFormatter={'Kg'}
           formatterLegendTextY={'Peso (Kg)'}
           paletteGroup={'warning'}
-          color={'main'}
           minRange={0}
           maxRange={50}
           title={'Peso (Kg)'}
-          data={Mock.apiary2}
+          data={hivesData.hive2}
         />
         <HiveLineChart
-          toolFormatter={' g/m³'}
+          toolFormatter={'g/m³'}
           formatterLegendTextY={'Umidade (g/m³)'}
           paletteGroup={'info'}
-          color={'main'}
           minRange={0}
           maxRange={50}
           title={'Umidade (g/m³)'}
-          data={Mock.apiary3}
-        /> */}
+          data={hivesData.hive3}
+        />
       </Grid>
     </Grid>
   </Page>

@@ -68,7 +68,6 @@ const HiveLineChart = ({
   toolFormatter,
   formatterLegendTextY,
   paletteGroup,
-  color,
   minRange,
   maxRange,
   title,
@@ -83,7 +82,7 @@ const HiveLineChart = ({
   const [categories] = useState(data.categories);
   const [series] = useState([data.series]);
 
-  const colorLevel = theme.palette[paletteGroup][color];
+  const colorLevel = theme.palette[paletteGroup].main;
 
   useEffect(() => {
     setOptions((prevState) => ({
