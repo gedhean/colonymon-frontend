@@ -196,10 +196,12 @@ const DashboardDefault = () => {
               <LocationSearchInput onChange={handleLocationChange} />
             </Grid>
           </Grid>
-          <WeatherLineChart
-            latitude={location?.latitude}
-            longitude={location?.longitude}
-          />
+          <MainCard sx={{ mt: 2 }} content={false}>
+            <WeatherLineChart
+              latitude={location?.latitude}
+              longitude={location?.longitude}
+            />
+          </MainCard>
         </Grid>
       </Grid>
     </Page>

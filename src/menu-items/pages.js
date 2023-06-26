@@ -34,7 +34,7 @@ const pages = {
       id: 'hives',
       title: <FormattedMessage id="hives" />,
       type: 'item',
-      url: '/hives',
+      url: '/apiaries/hives',
       icon: icons.BoxPlotOutlined,
       target: false
     }
