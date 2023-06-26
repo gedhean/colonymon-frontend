@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
+// third-party
+import { useIntl } from 'react-intl';
+
 // next
 import dynamic from 'next/dynamic';
 
@@ -43,6 +46,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
   const theme = useTheme();
   const { mode } = useConfig();
   const weather = useWeather(latitude, longitude);
+  const { formatMessage } = useIntl();
 
   const line = theme.palette.divider;
   const { primary, secondary } = theme.palette.text;
@@ -59,6 +63,15 @@ const WeatherLineChart = ({ latitude, longitude }) => {
     setOptions((prevState) => ({
       ...prevState,
       colors: [temperatureColor, humidityColor, uvColor],
+      chart: {
+        background:
+          theme.palette.mode === ThemeMode.DARK
+            ? 'secondary.lighter'
+            : 'primary.lighter',
+        toolbar: {
+          show: false
+        }
+      },
       xaxis: {
         type: 'datetime',
         format: 'HH:mm',
@@ -78,7 +91,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
           max: 50,
           forceNiceScale: true,
           title: {
-            text: 'Temperatura (°C)',
+            text: `${formatMessage({ id: 'temperature' })} (°C)`,
             style: {
               color: secondary,
               fontWeight: theme.typography.fontWeightRegular
@@ -94,7 +107,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
         {
           forceNiceScale: true,
           title: {
-            text: 'Umidade (%)',
+            text: `${formatMessage({ id: 'humidity' })}  (%)`,
             style: {
               color: secondary,
               fontWeight: theme.typography.fontWeightRegular
@@ -113,7 +126,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
           min: 0,
           max: 12,
           title: {
-            text: 'Índice UV',
+            text: `${formatMessage({ id: 'uv-index' })}`,
             style: {
               color: secondary,
               fontWeight: theme.typography.fontWeightRegular
@@ -145,7 +158,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
                 background: bgColor,
                 color: primary
               },
-              text: 'Hora Atual'
+              text: formatMessage({ id: 'now' })
             }
           }
         ]
@@ -165,7 +178,9 @@ const WeatherLineChart = ({ latitude, longitude }) => {
     humidityColor,
     uvColor,
     theme.typography.fontWeightRegular,
-    bgColor
+    bgColor,
+    theme.palette.mode,
+    formatMessage
   ]);
 
   useEffect(() => {

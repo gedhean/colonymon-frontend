@@ -40,7 +40,7 @@ const chartOptions = {
   },
   stroke: {
     curve: 'smooth',
-    width: 2
+    width: 1
   },
   legend: {
     show: false
@@ -158,8 +158,8 @@ const HiveLineChart = ({
             ? 'secondary.lighter'
             : 'common.white',
         border: '1px solid',
+        borderRadius: 1,
         borderColor: line,
-        borderRadius: 4,
         padding: '0 20px'
       }}
     >
