@@ -56,7 +56,16 @@ const PopperStyled = styled(Popper)(({ theme }) => ({
   }
 }));
 
-const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, selectedItems, setSelectedLevel, selectedLevel }) => {
+const NavGroup = ({
+  item,
+  lastItem,
+  remItems,
+  lastItemId,
+  setSelectedItems,
+  selectedItems,
+  setSelectedLevel,
+  selectedLevel
+}) => {
   const theme = useTheme();
   const router = useRouter();
   const { asPath } = router;
@@ -131,7 +140,10 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
       style={{
         fontSize: 20,
         stroke: '1.5',
-        color: selectedID === currentItem.id ? theme.palette.primary.main : theme.palette.secondary.dark
+        color:
+          selectedID === currentItem.id
+            ? theme.palette.primary.main
+            : theme.palette.secondary.dark
       }}
     />
   ) : null;
@@ -155,7 +167,12 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
         return <NavItem key={menuItem.id} item={menuItem} level={1} />;
       default:
         return (
-          <Typography key={menuItem.id} variant="h6" color="error" align="center">
+          <Typography
+            key={menuItem.id}
+            variant="h6"
+            color="error"
+            align="center"
+          >
             Fix - Group Collapse or Items
           </Typography>
         );
@@ -188,7 +205,12 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
             return <NavItem key={menu.id} item={menu} level={1} />;
           default:
             return (
-              <Typography key={menu.id} variant="h6" color="error" align="center">
+              <Typography
+                key={menu.id}
+                variant="h6"
+                color="error"
+                align="center"
+              >
                 Menu Items Error
               </Typography>
             );
@@ -234,7 +256,14 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
             item.title &&
             drawerOpen && (
               <Box sx={{ pl: 3, mb: 1.5 }}>
-                <Typography variant="subtitle2" color={theme.palette.mode === ThemeMode.DARK ? 'textSecondary' : 'text.secondary'}>
+                <Typography
+                  variant="subtitle2"
+                  color={
+                    theme.palette.mode === ThemeMode.DARK
+                      ? 'textSecondary'
+                      : 'text.secondary'
+                  }
+                >
                   {item.title}
                 </Typography>
                 {item.caption && (
@@ -271,7 +300,11 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
           >
             {itemIcon && (
               <ListItemIcon sx={{ minWidth: 28 }}>
-                {currentItem.id === lastItemId ? <DownOutlined style={{ fontSize: 20, stroke: '1.5' }} /> : itemIcon}
+                {currentItem.id === lastItemId ? (
+                  <DownOutlined style={{ fontSize: 20, stroke: '1.5' }} />
+                ) : (
+                  itemIcon
+                )}
               </ListItemIcon>
             )}
             <ListItemText
@@ -279,9 +312,17 @@ const NavGroup = ({ item, lastItem, remItems, lastItemId, setSelectedItems, sele
               primary={
                 <Typography
                   variant="body1"
-                  color={selectedID === currentItem.id ? theme.palette.primary.main : theme.palette.secondary.dark}
+                  color={
+                    selectedID === currentItem.id
+                      ? theme.palette.primary.main
+                      : theme.palette.secondary.dark
+                  }
                 >
-                  {currentItem.id === lastItemId ? <FormattedMessage id="More Items" /> : currentItem.title}
+                  {currentItem.id === lastItemId ? (
+                    <FormattedMessage id="More Items" />
+                  ) : (
+                    currentItem.title
+                  )}
                 </Typography>
               }
             />
