@@ -1,6 +1,6 @@
 // ==============================|| OVERRIDES - TABLE PAGINATION ||============================== //
 
-export default function TablePagination() {
+export default function TablePagination(theme) {
   return {
     MuiTablePagination: {
       styleOverrides: {
@@ -10,7 +10,8 @@ export default function TablePagination() {
         displayedRows: {
           fontSize: '0.875rem'
         }
-      }
+      },
+      ...theme.components?.MuiTablePagination
     }
   };
 }

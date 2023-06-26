@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ptBR, enUS } from '@mui/material/locale';
 
 // project import
 import useConfig from 'hooks/useConfig';
@@ -15,7 +16,7 @@ import componentsOverride from './overrides';
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
 export default function ThemeCustomization({ children }) {
-  const { themeDirection, mode, presetColor, fontFamily } = useConfig();
+  const { themeDirection, mode, presetColor, fontFamily, i18n } = useConfig();
 
   const theme = useMemo(() => Palette(mode, presetColor), [mode, presetColor]);
 
@@ -25,6 +26,16 @@ export default function ThemeCustomization({ children }) {
     [fontFamily]
   );
   const themeCustomShadows = useMemo(() => CustomShadows(theme), [theme]);
+  const themeLocalization = useMemo(() => {
+    switch (i18n) {
+      case 'en':
+        return enUS;
+      case 'pt':
+        return ptBR;
+      default:
+        return ptBR;
+    }
+  }, [i18n]);
 
   const themeOptions = useMemo(
     () => ({
@@ -52,7 +63,7 @@ export default function ThemeCustomization({ children }) {
     [themeDirection, theme, themeTypography, themeCustomShadows]
   );
 
-  const themes = createTheme(themeOptions);
+  const themes = createTheme(themeOptions, themeLocalization);
   themes.components = componentsOverride(themes);
 
   return (

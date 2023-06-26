@@ -26,6 +26,7 @@ export default function Alert(theme) {
 
   return {
     MuiAlert: {
+      ...theme.components?.MuiAlert,
       styleOverrides: {
         root: {
           color: theme.palette.text.primary,
@@ -45,10 +46,19 @@ export default function Alert(theme) {
           padding: '10px 16px',
           border: '1px solid',
           ...primaryDashed,
-          '&.MuiAlert-borderPrimary': getColorStyle({ color: 'primary', theme }),
-          '&.MuiAlert-borderSecondary': getColorStyle({ color: 'secondary', theme }),
+          '&.MuiAlert-borderPrimary': getColorStyle({
+            color: 'primary',
+            theme
+          }),
+          '&.MuiAlert-borderSecondary': getColorStyle({
+            color: 'secondary',
+            theme
+          }),
           '&.MuiAlert-borderError': getColorStyle({ color: 'error', theme }),
-          '&.MuiAlert-borderSuccess': getColorStyle({ color: 'success', theme }),
+          '&.MuiAlert-borderSuccess': getColorStyle({
+            color: 'success',
+            theme
+          }),
           '&.MuiAlert-borderInfo': getColorStyle({ color: 'info', theme }),
           '&.MuiAlert-borderWarning': getColorStyle({ color: 'warning', theme })
         },

@@ -1,8 +1,9 @@
 // ==============================|| OVERRIDES - AUTOCOMPLETE ||============================== //
 
-export default function Autocomplete() {
+export default function Autocomplete(theme) {
   return {
     MuiAutocomplete: {
+      ...theme.components?.MuiAutocomplete,
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {

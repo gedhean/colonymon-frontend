@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // next
 import NextLink from 'next/link';
 
 // material-ui
 import {
   Box,
+  Button,
   Chip,
   Divider,
   Link,
@@ -133,10 +137,10 @@ const headCells = [
     label: 'Status do Getaway'
   },
   {
-    id: 'update',
+    id: 'actions',
     align: 'left',
     disablePadding: false,
-    label: 'Última Atualização'
+    label: 'Ações'
   }
 ];
 
@@ -349,7 +353,15 @@ export default function HiveTable() {
                     <ApiaryStatus status={row.status} />
                   </TableCell>
                   <TableCell align="left">
-                    <HiveLastUpdate update={row.update} />
+                    <NextLink
+                      href="/apiaries/hives/data"
+                      passHref
+                      legacyBehavior
+                    >
+                      <Button color="info" variant="outlined" size="small">
+                        <FormattedMessage id="view-hives-data" />
+                      </Button>
+                    </NextLink>
                   </TableCell>
                 </TableRow>
               );
@@ -367,10 +379,6 @@ export default function HiveTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        labelDisplayedRows={({ from, to, count }) =>
-          `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`
-        }
-        labelRowsPerPage="Linhas por página:"
       />
     </Box>
   );

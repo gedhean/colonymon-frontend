@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+// third-party
+import { FormattedMessage } from 'react-intl';
+
 // next
 import NextLink from 'next/link';
 
 // material-ui
 import {
   Box,
+  Button,
   Chip,
   Divider,
   Link,
@@ -27,6 +31,9 @@ import {
 // project import
 import Dot from 'components/@extended/Dot';
 
+// assets
+import { EnvironmentOutlined } from '@ant-design/icons';
+
 function createData(id, name, health, status) {
   return { id, name, health, status };
 }
@@ -42,13 +49,20 @@ const rows = [
   createData(98753263, 'Barzory', 2, 2),
   createData(98753275, 'Chevawsky', 2, 1),
   createData(98753221, 'Chairmen King', 5, 0),
-  createData(98753211, 'Chairmen King', 5, 0),
-  createData(98753321, 'Chairmen King', 5, 0),
-  createData(98253221, 'Chairmen King', 5, 0),
+  createData(98753211, 'Crawford', 5, 0),
+  createData(98753321, 'Bernardo', 5, 0),
+  createData(98253221, 'Flavio', 5, 0),
   createData(98423291, 'Chairmen King', 5, 0),
   createData(98234291, 'Chairmen King', 5, 0),
   createData(98356291, 'Chairmen King', 5, 0),
   createData(98345291, 'Chairmen King', 5, 0)
+];
+
+const locations = [
+  'Fortaleza - CE',
+  'Quixadá - CE',
+  'Quixeramobim - CE',
+  'São Paulo - SP'
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -95,7 +109,7 @@ const headCells = [
     label: 'Nome'
   },
   {
-    id: 'latlng',
+    id: 'location',
     align: 'left',
     disablePadding: false,
     label: 'Localização'
@@ -191,7 +205,7 @@ const ApiaryHealth = ({ health }) => {
       break;
     default:
       color = 'secondary';
-      title = 'Descconhecido';
+      title = 'Desconhecido';
   }
 
   return (
@@ -258,10 +272,17 @@ export default function ApiaryTable() {
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">
-                    <ApiaryHealth health={row.health} />
+                    <Typography variant="body" color="secondary">
+                      {locations[Math.floor(Math.random() * locations.length)]}{' '}
+                      <EnvironmentOutlined />
+                    </Typography>
                   </TableCell>
                   <TableCell align="left">
-                    <ApiaryStatus status={row.status} />
+                    <NextLink href="/apiaries/hives" passHref legacyBehavior>
+                      <Button color="info" variant="outlined" size="small">
+                        <FormattedMessage id="view-hives" />
+                      </Button>
+                    </NextLink>
                   </TableCell>
                 </TableRow>
               );
@@ -279,10 +300,6 @@ export default function ApiaryTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        labelDisplayedRows={({ from, to, count }) =>
-          `${from}–${to} de ${count !== -1 ? count : `mais de ${to}`}`
-        }
-        labelRowsPerPage="Linhas por página:"
       />
     </Box>
   );
