@@ -2,19 +2,17 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import {
-  UserOutlined
-} from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
-  UserOutlined,
+  UserOutlined
 };
 
 // ==============================|| MENU ITEMS - SUPPORT ||============================== //
 
-const config = {
-  id: 'config',
+const settings = {
+  id: 'settings',
   title: <FormattedMessage id="settings" />,
   type: 'group',
   children: [
@@ -24,8 +22,8 @@ const config = {
       type: 'item',
       url: '/apps/profiles/user/personal',
       icon: icons.UserOutlined
-    },
+    }
   ]
 };
 
-export default config;
+export default settings;
