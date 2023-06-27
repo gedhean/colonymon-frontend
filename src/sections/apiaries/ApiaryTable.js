@@ -25,9 +25,6 @@ import {
   Typography
 } from '@mui/material';
 
-// third-party
-// import { NumericFormat } from 'react-number-format';
-
 // project import
 import Dot from 'components/@extended/Dot';
 
@@ -99,26 +96,22 @@ const headCells = [
   {
     id: 'id',
     align: 'left',
-    disablePadding: false,
-    label: 'Identificador'
+    disablePadding: false
   },
   {
     id: 'name',
     align: 'left',
-    disablePadding: true,
-    label: 'Nome'
+    disablePadding: false
   },
   {
     id: 'location',
     align: 'left',
-    disablePadding: false,
-    label: 'Localização'
+    disablePadding: false
   },
   {
     id: 'actions',
     align: 'left',
-    disablePadding: false,
-    label: 'Ações'
+    disablePadding: false
   }
 ];
 
@@ -135,7 +128,7 @@ function ApiaryTableHead({ order, orderBy }) {
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {headCell.label}
+            <FormattedMessage id={headCell.id} />
           </TableCell>
         ))}
       </TableRow>
@@ -169,7 +162,7 @@ const ApiaryStatus = ({ status }) => {
       break;
     default:
       color = 'primary';
-      title = 'Descconhecido';
+      title = 'Desconhecido';
   }
 
   return (
@@ -266,7 +259,11 @@ export default function ApiaryTable() {
                     scope="row"
                     align="left"
                   >
-                    <NextLink href="/" passHref legacyBehavior>
+                    <NextLink
+                      href={`/apiaries/hives/${row.id}`}
+                      passHref
+                      legacyBehavior
+                    >
                       <Link color="secondary">{row.id}</Link>
                     </NextLink>
                   </TableCell>
@@ -278,7 +275,11 @@ export default function ApiaryTable() {
                     </Typography>
                   </TableCell>
                   <TableCell align="left">
-                    <NextLink href="/apiaries/hives" passHref legacyBehavior>
+                    <NextLink
+                      href={`/apiaries/hives/${row.id}`}
+                      passHref
+                      legacyBehavior
+                    >
                       <Button color="info" variant="outlined" size="small">
                         <FormattedMessage id="view-hives" />
                       </Button>

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // third-party
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 // next
 import NextLink from 'next/link';
@@ -97,50 +97,42 @@ const headCells = [
   {
     id: 'id',
     align: 'left',
-    disablePadding: false,
-    label: 'Identificador'
+    disablePadding: false
   },
   {
     id: 'name',
     align: 'left',
-    disablePadding: 'normal',
-    label: 'Nome'
+    disablePadding: 'normal'
   },
   {
     id: 'temperature',
     align: 'left',
-    disablePadding: false,
-    label: 'Temperatura (°C)'
+    disablePadding: false
   },
   {
     id: 'humidity',
     align: 'left',
-    disablePadding: false,
-    label: 'Umidade (g/m³)'
+    disablePadding: false
   },
   {
     id: 'weight',
     align: 'left',
-    disablePadding: false,
-    label: 'Peso (kg)'
+    disablePadding: false
   },
   {
-    id: 'health',
+    id: 'wellbeing',
     align: 'left',
-    disablePadding: 'normal',
-    label: 'Saúde'
+    disablePadding: 'normal'
   },
   {
-    id: 'status',
+    id: 'getaway',
     align: 'left',
-    disablePadding: false,
-    label: 'Status do Getaway'
+    disablePadding: false
   },
   {
     id: 'actions',
     align: 'left',
-    disablePadding: false,
-    label: 'Ações'
+    disablePadding: false
   }
 ];
 
@@ -157,7 +149,7 @@ function HiveTableHead({ order, orderBy }) {
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            {headCell.label}
+            <FormattedMessage id={headCell.id} />
           </TableCell>
         ))}
       </TableRow>
@@ -179,22 +171,24 @@ const ApiaryStatus = ({ status }) => {
   switch (status) {
     case 0:
       color = 'error';
-      title = 'Offline';
+      title = 'offline';
       break;
     case 1:
       color = 'success';
-      title = 'Online';
+      title = 'online';
       break;
 
     default:
       color = 'primary';
-      title = 'Descconhecido';
+      title = 'unknown';
   }
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
       <Dot color={color} />
-      <Typography>{title}</Typography>
+      <Typography>
+        <FormattedMessage id={title} />
+      </Typography>
     </Stack>
   );
 };
