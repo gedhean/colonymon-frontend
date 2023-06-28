@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 // next
 import NextLink from 'next/link';
@@ -206,6 +207,9 @@ const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
 
 export default function ApiaryTable() {
+  const MapWithNoSSR = dynamic(() => import('./default/Map'), {
+    ssr: false
+  });
   const [order] = useState('asc');
   const [orderBy] = useState('id');
   const [page, setPage] = useState(DEFAULT_PAGE);
@@ -284,6 +288,7 @@ export default function ApiaryTable() {
         }
         labelRowsPerPage="Linhas por página:"
       />
+      <MapWithNoSSR />
     </Box>
   );
 }
