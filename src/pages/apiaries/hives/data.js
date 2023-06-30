@@ -116,9 +116,15 @@ const HiveChartsPage = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <MainCard sx={{ mt: 2 }} content={false}>
-            <BatteryLevelBarChart />
-          </MainCard>
+          <HiveLineChart
+            title={formatMessage({ id: 'vibration' })}
+            toolFormatter={''}
+            formatterLegendTextY={formatMessage({ id: 'vibration' })}
+            paletteGroup={'primary'}
+            minRange={0}
+            maxRange={1}
+            data={hivesData.hive4}
+          />
         </Grid>
         <Grid item xs={12}>
           <MainCard sx={{ mt: 2 }} content={false}>
