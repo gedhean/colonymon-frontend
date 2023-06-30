@@ -1,22 +1,32 @@
 import { useState } from 'react';
 
 // third-party
-import { FormattedMessage, useIntl } from 'react-intl';
+import sub from 'date-fns/sub';
+import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
 
 // material-ui
-import { Box, Button, Grid, Link, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography
+} from '@mui/material';
 
 // project import
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import WelcomeBanner from 'sections/dashboard/default/WelcomeBanner';
+import WeightBarChart from 'sections/dashboard/default/WeightBarChart';
 import LocationSearchInput from 'sections/dashboard/LocationSearchInput';
 import WeatherLineChart from 'sections/dashboard/default/WeatherLineChart';
 import GatewayAreaChart from 'sections/dashboard/default/GatewayAreaChart';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 import WellbeingDonutChart from 'sections/dashboard/default/WellbeingDonutChart';
-import BatteryLevelBarChart from 'sections/dashboard/default/BatteryLevelBarChart';
 
 import useConfig from 'hooks/useConfig';
 import useLocalStorage from 'hooks/useLocalStorage';
@@ -27,7 +37,7 @@ import isBlank from 'utils/isBlank';
 
 const DashboardDefault = () => {
   const { formatMessage } = useIntl();
-  const { location: defaultLocation } = useConfig();
+  const { location: defaultLocation, i18n } = useConfig();
   const [slot, setSlot] = useState('week');
   const [location, setLocation] = useState(defaultLocation);
   const [welcomeDismissed] = useLocalStorage('welcomeBanner', false);
@@ -35,6 +45,10 @@ const DashboardDefault = () => {
   const handleLocationChange = (location) => {
     if (isBlank(location)) setLocation(defaultLocation);
     else setLocation(location);
+  };
+
+  const handleSlotChange = (newSlot) => {
+    if (newSlot !== null) setSlot(newSlot);
   };
 
   return (
@@ -126,7 +140,7 @@ const DashboardDefault = () => {
               >
                 <Button
                   size="small"
-                  onClick={() => setSlot('month')}
+                  onClick={() => handleSlotChange('month')}
                   color={slot === 'month' ? 'primary' : 'secondary'}
                   variant={slot === 'month' ? 'outlined' : 'text'}
                   sx={{ pt: 0, pb: 0 }}
@@ -135,7 +149,7 @@ const DashboardDefault = () => {
                 </Button>
                 <Button
                   size="small"
-                  onClick={() => setSlot('week')}
+                  onClick={() => handleSlotChange('week')}
                   color={slot === 'week' ? 'primary' : 'secondary'}
                   variant={slot === 'week' ? 'outlined' : 'text'}
                   sx={{ pt: 0, pb: 0 }}
@@ -148,9 +162,9 @@ const DashboardDefault = () => {
           <MainCard sx={{ mt: 1.5 }} content={false}>
             <Box sx={{ p: 3, pb: 0 }}>
               <Stack spacing={2}>
-                {/* <Typography variant="h6" color="textSecondary">
+                <Typography variant="h6" color="textSecondary">
                   Estatísticas de Disponibilidade
-                </Typography> */}
+                </Typography>
                 <Typography variant="h3">99.8%</Typography>
               </Stack>
             </Box>
@@ -163,13 +177,75 @@ const DashboardDefault = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h5">
-                <FormattedMessage id="chart-battery-level" />
+                <FormattedMessage id="chart-weight-gain" />
               </Typography>
             </Grid>
             <Grid item />
           </Grid>
           <MainCard sx={{ mt: 2 }} content={false}>
-            <BatteryLevelBarChart />
+            <Grid item>
+              <Grid container>
+                <Grid item xs={12} sm={6}>
+                  <Stack
+                    sx={{ ml: 2, mt: 3 }}
+                    alignItems={{ xs: 'center', sm: 'flex-start' }}
+                  >
+                    <Typography color="textSecondary" sx={{ display: 'block' }}>
+                      <FormattedMessage id="period" />:{' '}
+                      <FormattedDate
+                        value={
+                          slot === 'week'
+                            ? sub(new Date(), { days: 7 })
+                            : sub(new Date(), { months: 1 })
+                        }
+                        day="numeric"
+                        month="short"
+                        year="numeric"
+                      />{' '}
+                      -{' '}
+                      <FormattedDate
+                        value={new Date()}
+                        day="numeric"
+                        month="short"
+                        year="numeric"
+                      />
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                    justifyContent={{ xs: 'center', sm: 'flex-end' }}
+                    sx={{ mt: 2, mr: 2, mb: 2 }}
+                  >
+                    <ToggleButtonGroup
+                      exclusive
+                      onChange={(e, value) => handleSlotChange(value)}
+                      size="small"
+                      value={slot}
+                    >
+                      <ToggleButton
+                        disabled={slot === 'week'}
+                        value="week"
+                        sx={{ px: 2, py: 0.5 }}
+                      >
+                        <FormattedMessage id="week" />
+                      </ToggleButton>
+                      <ToggleButton
+                        disabled={slot === 'month'}
+                        value="month"
+                        sx={{ px: 2, py: 0.5 }}
+                      >
+                        <FormattedMessage id="month" />
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                  </Stack>
+                </Grid>
+              </Grid>
+            </Grid>
+            <WeightBarChart slot={slot} />
           </MainCard>
         </Grid>
 
