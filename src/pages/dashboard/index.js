@@ -118,9 +118,7 @@ const DashboardDefault = () => {
             </Grid>
           </Grid>
           <MainCard content={false} sx={{ mt: 1.5 }}>
-            <Box sx={{ pt: 1, pr: 2 }}>
-              <WellbeingDonutChart />
-            </Box>
+            <WellbeingDonutChart />
           </MainCard>
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
@@ -159,15 +157,7 @@ const DashboardDefault = () => {
               </Stack>
             </Grid>
           </Grid>
-          <MainCard sx={{ mt: 1.5 }} content={false}>
-            <Box sx={{ p: 3, pb: 0 }}>
-              <Stack spacing={2}>
-                <Typography variant="h6" color="textSecondary">
-                  Estatísticas de Disponibilidade
-                </Typography>
-                <Typography variant="h3">99.8%</Typography>
-              </Stack>
-            </Box>
+          <MainCard sx={{ mt: 1.5, mb: 0 }} content={false}>
             <GatewayAreaChart slot={slot} />
           </MainCard>
         </Grid>
@@ -254,7 +244,7 @@ const DashboardDefault = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h5">
-                <FormattedMessage id="chart-weather" />
+                <FormattedMessage id="local-weather" />
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 <FormattedMessage id="local" />:{' '}
