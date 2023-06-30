@@ -103,5 +103,7 @@
   "welcome-banner-button": "Dissmiss",
   "welcome-banner-subtitle": "Colonymon is a platform that allows you to monitor your apiaries and hives.",
   "welcome-banner-tile": "Welcome to Colonymon",
-  "wellbeing": "Wellbeing"
+  "wellbeing": "Wellbeing",
+  "co2": "CO2 (ppm)",
+  "carbon-dioxide": "Carbon Dioxide (PPM)"
 }

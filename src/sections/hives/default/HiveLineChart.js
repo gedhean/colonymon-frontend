@@ -115,7 +115,7 @@ const HiveLineChart = ({
         max: maxRange,
         show: true,
         labels: {
-          formatter: (val) => val + `${toolFormatter}`,
+          formatter: (val) => val + ` ${toolFormatter}`,
           style: {
             colors: [secondary]
           }
