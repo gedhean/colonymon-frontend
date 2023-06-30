@@ -75,7 +75,6 @@ const HiveLineChart = ({
 }) => {
   const theme = useTheme();
   const { mode } = useConfig();
-  const backColor = theme.palette.background.paper;
   const line = theme.palette.divider;
   const { secondary } = theme.palette.text;
   const [options, setOptions] = useState(chartOptions);
