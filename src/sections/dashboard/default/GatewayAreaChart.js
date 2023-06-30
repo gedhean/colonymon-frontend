@@ -15,7 +15,9 @@ import { Box } from '@mui/material';
 import { ThemeMode } from 'config';
 import useConfig from 'hooks/useConfig';
 
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const ReactApexChart = dynamic(() => import('react-apexcharts'), {
+  ssr: false
+});
 
 // chart options
 const areaChartOptions = {
@@ -56,7 +58,20 @@ const GatewayAreaChart = ({ slot }) => {
       xaxis: {
         categories:
           slot === 'month'
-            ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            ? [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec'
+              ]
             : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         labels: {
           style: {
@@ -118,14 +133,22 @@ const GatewayAreaChart = ({ slot }) => {
     setSeries([
       {
         name: formatMessage({ id: 'availability' }),
-        data: slot === 'month' ? [76, 85, 100, 98, 87, 100, 91, 100, 94, 86, 100, 35] : [31, 40, 28, 51, 42, 10, 100]
+        data:
+          slot === 'month'
+            ? [76, 85, 100, 98, 87, 100, 91, 100, 94, 86, 100, 35]
+            : [31, 40, 28, 51, 42, 10, 100]
       }
     ]);
   }, [formatMessage, slot]);
 
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>
-      <ReactApexChart options={options} series={series} type="area" height={210} />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="area"
+        height={300}
+      />
     </Box>
   );
 };
