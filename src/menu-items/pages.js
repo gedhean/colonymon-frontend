@@ -29,14 +29,6 @@ const pages = {
       url: '/apiaries',
       icon: icons.BoxPlotOutlined,
       target: false
-    },
-    {
-      id: 'hives',
-      title: <FormattedMessage id="hives" />,
-      type: 'item',
-      url: '/apiaries/hives',
-      icon: icons.BoxPlotOutlined,
-      target: false
     }
   ]
 };
