@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // third-party
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 // next
 import dynamic from 'next/dynamic';
 
 // material-ui
+import { Box, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
 
 // project import
 import { ThemeMode } from 'config';
@@ -201,7 +201,22 @@ const WeatherLineChart = ({ latitude, longitude }) => {
   }, [weather.data.temperature, weather.data.humidity, weather.data.uv]);
 
   return (
-    <Box id="chart" sx={{ bgcolor: 'transparent' }}>
+    <Box
+      id="chart"
+      sx={{
+        bgcolor:
+          theme.palette.mode === ThemeMode.DARK
+            ? 'secondary.lighter'
+            : 'common.white',
+        border: '1px solid',
+        borderRadius: 1,
+        borderColor: line,
+        padding: '0 20px'
+      }}
+    >
+      <Typography variant="h5" sx={{ ml: '25px', mb: '5px', mt: '10px' }}>
+        <FormattedMessage id="chart-weather" />
+      </Typography>
       <ReactApexChart
         options={options}
         series={series}
