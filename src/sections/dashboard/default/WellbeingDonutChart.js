@@ -12,12 +12,14 @@ import { Box } from '@mui/material';
 import { ThemeMode } from 'config';
 import useConfig from 'hooks/useConfig';
 
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const ReactApexChart = dynamic(() => import('react-apexcharts'), {
+  ssr: false
+});
 
 // chart options
 const chartOptions = {
   chart: {
-    type: 'donut',
+    type: 'donut'
   },
   labels: ['Bem-estar', 'Fraca', 'Muito Fraca'],
   legend: {
@@ -81,7 +83,7 @@ const WellbeingDonutChart = () => {
   useEffect(() => {
     setOptions((prevState) => ({
       ...prevState,
-      colors: [successDark, orangeDark, errorDark ],
+      colors: [successDark, orangeDark, errorDark],
       xaxis: {
         labels: {
           style: {
@@ -117,7 +119,12 @@ const WellbeingDonutChart = () => {
 
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>
-      <ReactApexChart options={options} series={series} type="donut" />
+      <ReactApexChart
+        options={options}
+        series={series}
+        type="donut"
+        height={300}
+      />
     </Box>
   );
 };
