@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+
 // third-party
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -28,6 +30,16 @@ const HiveChartsPage = () => {
   const theme = useTheme();
   const { formatMessage } = useIntl();
 
+  const weightChartRef = useRef(null);
+  const temperatureChartRef = useRef(null);
+  const humidityChartRef = useRef(null);
+  const carbonDioxideChartRef = useRef(null);
+  const vibrationChartRef = useRef(null);
+
+  const handleCardClick = (chartRef) => {
+    chartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
   return (
     <Page title="Gráficos">
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -57,7 +69,15 @@ const HiveChartsPage = () => {
           <Stack direction="row" spacing={1} alignItems="center"></Stack>
         </Grid>
         {/* Row 1 */}
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleCardClick(weightChartRef)}
+          sx={{ cursor: 'pointer' }}
+        >
           <ReportCard
             primary="50 Kg"
             secondary={formatMessage({ id: 'weight' })}
@@ -66,7 +86,15 @@ const HiveChartsPage = () => {
             percentage={10}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleCardClick(temperatureChartRef)}
+          sx={{ cursor: 'pointer' }}
+        >
           <ReportCard
             primary="35 C°"
             secondary={formatMessage({ id: 'temperature' })}
@@ -76,7 +104,15 @@ const HiveChartsPage = () => {
             isLoss
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleCardClick(humidityChartRef)}
+          sx={{ cursor: 'pointer' }}
+        >
           <ReportCard
             primary="50%"
             secondary={formatMessage({ id: 'humidity' })}
@@ -86,7 +122,15 @@ const HiveChartsPage = () => {
             isLoss
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          onClick={() => handleCardClick(carbonDioxideChartRef)}
+          sx={{ cursor: 'pointer' }}
+        >
           <ReportCard
             primary="50 PPM"
             secondary={formatMessage({ id: 'carbon-dioxide' })}
@@ -97,7 +141,7 @@ const HiveChartsPage = () => {
         </Grid>
 
         {/* Row 2 */}
-        <Grid item xs={12}>
+        <Grid item xs={12} ref={weightChartRef}>
           <HiveLineChart
             title={formatMessage({ id: 'weight' })}
             toolFormatter={'Kg'}
@@ -108,7 +152,7 @@ const HiveChartsPage = () => {
             data={hivesData.hive3}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} ref={temperatureChartRef}>
           <HiveLineChart
             title={formatMessage({ id: 'temperature' })}
             toolFormatter={'°C'}
@@ -119,7 +163,7 @@ const HiveChartsPage = () => {
             data={hivesData.hive1}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} ref={humidityChartRef}>
           <HiveLineChart
             title={formatMessage({ id: 'humidity' })}
             toolFormatter={'g/m³'}
@@ -130,7 +174,7 @@ const HiveChartsPage = () => {
             data={hivesData.hive2}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} ref={carbonDioxideChartRef}>
           <HiveLineChart
             title={formatMessage({ id: 'carbon-dioxide' })}
             toolFormatter={'PPM'}
@@ -141,7 +185,7 @@ const HiveChartsPage = () => {
             data={hivesData.hive1}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} ref={vibrationChartRef}>
           <HiveLineChart
             title={formatMessage({ id: 'vibration' })}
             toolFormatter={''}
