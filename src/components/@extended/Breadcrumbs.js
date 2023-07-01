@@ -10,10 +10,11 @@ import NextLink from 'next/link';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid, Link, Typography } from '@mui/material';
 import MuiBreadcrumbs from '@mui/material/Breadcrumbs';
 
 // project import
+import { APP_DEFAULT_PATH } from 'config';
 import MainCard from 'components/MainCard';
 
 // assets
@@ -58,20 +59,12 @@ const Breadcrumbs = ({
   });
 
   let customLocation = location.asPath;
-
-  // only used for component demo breadcrumbs
-  if (customLocation.includes('/components-overview/breadcrumbs')) {
-    customLocation = '/apps/kanban/board';
-  }
-
-  if (customLocation.includes('/apps/kanban/backlogs')) {
-    customLocation = '/apps/kanban/board';
-  }
+  let pathname = location.pathname;
 
   useEffect(() => {
-    if (customLocation.includes('/apps/profiles/user/payment')) {
-      setItem(undefined);
-    }
+    // if (customLocation.includes('hives')) {
+    //   setItem(undefined);
+    // }
   }, [item, customLocation]);
 
   // set active item state
@@ -84,8 +77,11 @@ const Breadcrumbs = ({
             setMain(collapse);
             setItem(collapse);
           }
-        } else if (collapse.type && collapse.type === 'item') {
-          if (customLocation === collapse.url) {
+        } else if (
+          collapse.type &&
+          (collapse.type === 'item' || collapse.type === 'hidden')
+        ) {
+          if (customLocation === collapse.url || pathname === collapse.url) {
             setMain(menu);
             setItem(collapse);
           }
@@ -97,7 +93,11 @@ const Breadcrumbs = ({
 
   // item separator
   const SeparatorIcon = separator;
-  const separatorIcon = separator ? <SeparatorIcon style={{ fontSize: '0.75rem', marginTop: 2 }} /> : '/';
+  const separatorIcon = separator ? (
+    <SeparatorIcon style={{ fontSize: '0.75rem', marginTop: 2 }} />
+  ) : (
+    '/'
+  );
 
   let mainContent;
   let itemContent;
@@ -111,7 +111,11 @@ const Breadcrumbs = ({
     CollapseIcon = main.icon ? main.icon : ApartmentOutlined;
     mainContent = (
       <NextLink href={document.location.pathname} passHref legacyBehavior>
-        <Typography variant="h6" sx={{ textDecoration: 'none' }} color="textSecondary">
+        <Typography
+          variant="h6"
+          sx={{ textDecoration: 'none' }}
+          color="textSecondary"
+        >
           {icons && <CollapseIcon style={iconSX} />}
           {main.title}
         </Typography>
@@ -120,7 +124,11 @@ const Breadcrumbs = ({
     breadcrumbContent = (
       <MainCard
         border={card}
-        sx={card === false ? { mb: 3, bgcolor: 'transparent', ...sx } : { mb: 3, ...sx }}
+        sx={
+          card === false
+            ? { mb: 3, bgcolor: 'transparent', ...sx }
+            : { mb: 3, ...sx }
+        }
         {...others}
         content={card}
         shadow="none"
@@ -133,13 +141,27 @@ const Breadcrumbs = ({
           spacing={1}
         >
           <Grid item>
-            <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
+            <MuiBreadcrumbs
+              aria-label="breadcrumb"
+              maxItems={maxItems || 8}
+              separator={separatorIcon}
+            >
               <NextLink href="/" passHref legacyBehavior>
-                <Typography color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
-                  {icons && <HomeOutlined style={iconSX} />}
-                  {icon && !icons && <HomeFilled style={{ ...iconSX, marginRight: 0 }} />}
-                  {(!icon || icons) && <FormattedMessage id="home" defaultMessage="Home" />}
-                </Typography>
+                <Link>
+                  <Typography
+                    color="textSecondary"
+                    variant="h6"
+                    sx={{ textDecoration: 'none' }}
+                  >
+                    {icons && <HomeOutlined style={iconSX} />}
+                    {icon && !icons && (
+                      <HomeFilled style={{ ...iconSX, marginRight: 0 }} />
+                    )}
+                    {(!icon || icons) && (
+                      <FormattedMessage id="home" defaultMessage="Home" />
+                    )}
+                  </Typography>
+                </Link>
               </NextLink>
               {mainContent}
             </MuiBreadcrumbs>
@@ -156,7 +178,7 @@ const Breadcrumbs = ({
   }
 
   // items
-  if (item && item.type === 'item') {
+  if (item && (item.type === 'item' || item.type === 'hidden')) {
     itemTitle = item.title;
 
     ItemIcon = item.icon ? item.icon : ApartmentOutlined;
@@ -172,7 +194,11 @@ const Breadcrumbs = ({
       breadcrumbContent = (
         <MainCard
           border={card}
-          sx={card === false ? { mb: 3, bgcolor: 'transparent', ...sx } : { mb: 3, ...sx }}
+          sx={
+            card === false
+              ? { mb: 3, bgcolor: 'transparent', ...sx }
+              : { mb: 3, ...sx }
+          }
           {...others}
           content={card}
           shadow="none"
@@ -190,13 +216,25 @@ const Breadcrumbs = ({
               </Grid>
             )}
             <Grid item>
-              <MuiBreadcrumbs aria-label="breadcrumb" maxItems={maxItems || 8} separator={separatorIcon}>
-                <NextLink href="/" passHref legacyBehavior>
-                  <Typography color="textSecondary" variant="h6" sx={{ textDecoration: 'none' }}>
-                    {icons && <HomeOutlined style={iconSX} />}
-                    {icon && !icons && <HomeFilled style={{ ...iconSX, marginRight: 0 }} />}
-                    {(!icon || icons) && 'Home'}
-                  </Typography>
+              <MuiBreadcrumbs
+                aria-label="breadcrumb"
+                maxItems={maxItems || 8}
+                separator={separatorIcon}
+              >
+                <NextLink href={APP_DEFAULT_PATH} passHref legacyBehavior>
+                  <Link>
+                    <Typography
+                      color="textSecondary"
+                      variant="h6"
+                      sx={{ textDecoration: 'none' }}
+                    >
+                      {icons && <HomeOutlined style={iconSX} />}
+                      {icon && !icons && (
+                        <HomeFilled style={{ ...iconSX, marginRight: 0 }} />
+                      )}
+                      {(!icon || icons) && <FormattedMessage id="home" />}
+                    </Typography>
+                  </Link>
                 </NextLink>
                 {mainContent}
                 {itemContent}

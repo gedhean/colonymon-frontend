@@ -263,7 +263,7 @@ export default function ApiaryTable() {
                     align="left"
                   >
                     <NextLink
-                      href={`/apiaries/hives/${row.id}`}
+                      href={`/apiaries/${row.id}/hives`}
                       passHref
                       legacyBehavior
                     >
@@ -282,7 +282,7 @@ export default function ApiaryTable() {
                   </TableCell>
                   <TableCell align="left">
                     <NextLink
-                      href={`/apiaries/hives/${row.id}`}
+                      href={`/apiaries/${row.id}/hives`}
                       passHref
                       legacyBehavior
                     >

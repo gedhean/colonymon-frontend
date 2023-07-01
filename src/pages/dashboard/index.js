@@ -52,7 +52,7 @@ const DashboardDefault = () => {
   };
 
   return (
-    <Page title="Dashboard">
+    <Page title={formatMessage({ id: 'dashboard' })}>
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
         {!welcomeDismissed && (
           <Grid item xs={12}>

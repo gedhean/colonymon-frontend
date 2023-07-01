@@ -165,6 +165,8 @@ const NavGroup = ({
         );
       case 'item':
         return <NavItem key={menuItem.id} item={menuItem} level={1} />;
+      case 'hidden':
+        return null;
       default:
         return (
           <Typography
@@ -203,6 +205,8 @@ const NavGroup = ({
             );
           case 'item':
             return <NavItem key={menu.id} item={menu} level={1} />;
+          case 'hidden':
+            return null;
           default:
             return (
               <Typography
@@ -237,6 +241,8 @@ const NavGroup = ({
         );
       case 'item':
         return <NavItem key={menu.id} item={menu} level={1} />;
+      case 'hidden':
+        return null;
       default:
         return (
           <Typography key={menu.id} variant="h6" color="error" align="center">

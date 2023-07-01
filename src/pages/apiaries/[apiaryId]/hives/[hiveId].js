@@ -3,6 +3,9 @@ import { useRef } from 'react';
 // third-party
 import { FormattedMessage, useIntl } from 'react-intl';
 
+// nextjs
+import { useRouter } from 'next/router';
+
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography } from '@mui/material';
@@ -28,6 +31,7 @@ import ThermometerIcon from 'components/icons/ThermometerIcon';
 
 const HiveChartsPage = () => {
   const theme = useTheme();
+  const router = useRouter();
   const { formatMessage } = useIntl();
 
   const weightChartRef = useRef(null);
@@ -41,7 +45,12 @@ const HiveChartsPage = () => {
   };
 
   return (
-    <Page title="Gráficos">
+    <Page
+      title={formatMessage(
+        { id: 'apiary-hives-details' },
+        { apiary: router.query.apiaryId, hive: router.query.hiveId }
+      )}
+    >
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
         <Grid item xs={12}>
           <Stack

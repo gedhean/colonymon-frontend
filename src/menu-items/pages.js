@@ -29,6 +29,20 @@ const pages = {
       url: '/apiaries',
       icon: icons.BoxPlotOutlined,
       target: false
+    },
+    {
+      id: 'hives',
+      title: <FormattedMessage id="hives" />,
+      type: 'hidden',
+      url: '/apiaries/[apiaryId]/hives',
+      target: false
+    },
+    {
+      id: 'hives-detail',
+      title: <FormattedMessage id="hives" />,
+      type: 'hidden',
+      url: '/apiaries/[apiaryId]/hives/[hiveId]',
+      target: false
     }
   ]
 };

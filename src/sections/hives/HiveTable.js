@@ -27,7 +27,14 @@ import HiveWellbeing from './HiveWellbeing';
 import HiveBatteryLevel from './HiveBatteryLevel';
 
 function createData(id, name, health, battery, update) {
-  return { id, name, health, battery, update };
+  return {
+    id,
+    name,
+    health,
+    battery,
+    update,
+    apiaryId: Math.floor(Math.random() * 3)
+  };
 }
 
 const rows = [
@@ -184,7 +191,11 @@ export default function HiveTable() {
                     scope="row"
                     align="left"
                   >
-                    <NextLink href="/" passHref legacyBehavior>
+                    <NextLink
+                      href={`/apiaries/${row.apiaryId}/hives/${row.id}`}
+                      passHref
+                      legacyBehavior
+                    >
                       <Link color="secondary">{row.id}</Link>
                     </NextLink>
                   </TableCell>
@@ -197,7 +208,7 @@ export default function HiveTable() {
                   </TableCell>
                   <TableCell align="left">
                     <NextLink
-                      href="/apiaries/hives/data"
+                      href={`/apiaries/${row.apiaryId}/hives/${row.id}`}
                       passHref
                       legacyBehavior
                     >

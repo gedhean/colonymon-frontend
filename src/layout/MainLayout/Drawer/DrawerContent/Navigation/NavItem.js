@@ -7,7 +7,16 @@ import NextLink from 'next/link';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, Link, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
+import {
+  Avatar,
+  Chip,
+  Link,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
 
 // project import
 import Dot from 'components/@extended/Dot';
@@ -39,7 +48,7 @@ const NavItem = ({ item, level }) => {
         <NextLink href={item.url} passHref legacyBehavior ref={ref}>
           <Link {...props} target={itemTarget} />
         </NextLink>
-      )
+      );
     })
   };
   if (item?.external) {
@@ -47,7 +56,11 @@ const NavItem = ({ item, level }) => {
   }
 
   const Icon = item.icon;
-  const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
+  const itemIcon = item.icon ? (
+    <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} />
+  ) : (
+    false
+  );
 
   const isSelected = openItem.findIndex((id) => id === item.id) > -1;
 
@@ -56,14 +69,14 @@ const NavItem = ({ item, level }) => {
 
   // active menu item on page load
   useEffect(() => {
-    if (asPath && asPath.includes('product-details')) {
-      if (item.url && item.url.includes('product-details')) {
+    if (asPath && asPath.includes('apiaries')) {
+      if (item.url && item.url.includes('apiaries')) {
         dispatch(activeItem({ openItem: [item.id] }));
       }
     }
 
-    if (asPath && asPath.includes('kanban')) {
-      if (item.url && item.url.includes('kanban')) {
+    if (asPath && asPath.includes('hives')) {
+      if (item.url && item.url.includes('hives')) {
         dispatch(activeItem({ openItem: [item.id] }));
       }
     }
@@ -74,8 +87,12 @@ const NavItem = ({ item, level }) => {
     // eslint-disable-next-line
   }, [asPath]);
 
-  const textColor = theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
-  const iconSelectedColor = theme.palette.mode === ThemeMode.DARK && drawerOpen ? 'text.primary' : 'primary.main';
+  const textColor =
+    theme.palette.mode === ThemeMode.DARK ? 'grey.400' : 'text.primary';
+  const iconSelectedColor =
+    theme.palette.mode === ThemeMode.DARK && drawerOpen
+      ? 'text.primary'
+      : 'primary.main';
 
   return (
     <>
@@ -90,15 +107,24 @@ const NavItem = ({ item, level }) => {
             py: !drawerOpen && level === 1 ? 1.25 : 1,
             ...(drawerOpen && {
               '&:hover': {
-                bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter'
+                bgcolor:
+                  theme.palette.mode === ThemeMode.DARK
+                    ? 'divider'
+                    : 'primary.lighter'
               },
               '&.Mui-selected': {
-                bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter',
+                bgcolor:
+                  theme.palette.mode === ThemeMode.DARK
+                    ? 'divider'
+                    : 'primary.lighter',
                 borderRight: `2px solid ${theme.palette.primary.main}`,
                 color: iconSelectedColor,
                 '&:hover': {
                   color: iconSelectedColor,
-                  bgcolor: theme.palette.mode === ThemeMode.DARK ? 'divider' : 'primary.lighter'
+                  bgcolor:
+                    theme.palette.mode === ThemeMode.DARK
+                      ? 'divider'
+                      : 'primary.lighter'
                 }
               }
             }),
@@ -130,14 +156,23 @@ const NavItem = ({ item, level }) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   '&:hover': {
-                    bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter'
+                    bgcolor:
+                      theme.palette.mode === ThemeMode.DARK
+                        ? 'secondary.light'
+                        : 'secondary.lighter'
                   }
                 }),
                 ...(!drawerOpen &&
                   isSelected && {
-                    bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.900' : 'primary.lighter',
+                    bgcolor:
+                      theme.palette.mode === ThemeMode.DARK
+                        ? 'primary.900'
+                        : 'primary.lighter',
                     '&:hover': {
-                      bgcolor: theme.palette.mode === ThemeMode.DARK ? 'primary.darker' : 'primary.lighter'
+                      bgcolor:
+                        theme.palette.mode === ThemeMode.DARK
+                          ? 'primary.darker'
+                          : 'primary.lighter'
                     }
                   })
               }}
@@ -148,7 +183,10 @@ const NavItem = ({ item, level }) => {
           {(drawerOpen || (!drawerOpen && level !== 1)) && (
             <ListItemText
               primary={
-                <Typography variant="h6" sx={{ color: isSelected ? iconSelectedColor : textColor }}>
+                <Typography
+                  variant="h6"
+                  sx={{ color: isSelected ? iconSelectedColor : textColor }}
+                >
                   {item.title}
                 </Typography>
               }

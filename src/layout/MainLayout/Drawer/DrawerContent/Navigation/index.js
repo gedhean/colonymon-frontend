@@ -30,7 +30,8 @@ const Navigation = () => {
     // eslint-disable-next-line
   }, [menuItem]);
 
-  const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downLG;
+  const isHorizontal =
+    menuOrientation === MenuOrientation.HORIZONTAL && !downLG;
 
   const lastItem = isHorizontal ? HORIZONTAL_MAX_ITEM : null;
   let lastItemIndex = menuItems.items.length - 1;
@@ -43,11 +44,13 @@ const Navigation = () => {
   if (lastItem && lastItem < menuItems.items.length) {
     lastItemId = menuItems.items[lastItem - 1].id;
     lastItemIndex = lastItem - 1;
-    remItems = menuItems.items.slice(lastItem - 1, menuItems.items.length).map((item) => ({
-      title: item.title,
-      elements: item.children,
-      icon: item.icon
-    }));
+    remItems = menuItems.items
+      .slice(lastItem - 1, menuItems.items.length)
+      .map((item) => ({
+        title: item.title,
+        elements: item.children,
+        icon: item.icon
+      }));
   }
 
   const navGroups = menuItems.items.slice(0, lastItemIndex + 1).map((item) => {
