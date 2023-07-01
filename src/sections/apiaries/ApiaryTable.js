@@ -31,8 +31,8 @@ import Dot from 'components/@extended/Dot';
 // assets
 import { EnvironmentOutlined } from '@ant-design/icons';
 
-function createData(id, name, health, status) {
-  return { id, name, health, status };
+function createData(id, name, health, gateway) {
+  return { id, name, health, gateway };
 }
 
 const rows = [
@@ -109,6 +109,11 @@ const headCells = [
     disablePadding: false
   },
   {
+    id: 'gateway',
+    align: 'left',
+    disablePadding: false
+  },
+  {
     id: 'actions',
     align: 'left',
     disablePadding: false
@@ -143,37 +148,35 @@ ApiaryTableHead.propTypes = {
 
 // ==============================|| APIRAY TABLE - STATUS ||============================== //
 
-const ApiaryStatus = ({ status }) => {
+const GatewayStatus = ({ status }) => {
   let color;
   let title;
 
   switch (status) {
     case 0:
-      color = 'warning';
-      title = 'Requer atenção';
+      color = 'error';
+      title = 'offline';
       break;
     case 1:
       color = 'success';
-      title = 'Bem-estar';
-      break;
-    case 2:
-      color = 'error';
-      title = 'Crítico';
+      title = 'online';
       break;
     default:
-      color = 'primary';
-      title = 'Desconhecido';
+      color = 'secondary';
+      title = 'unknown';
   }
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
       <Dot color={color} />
-      <Typography>{title}</Typography>
+      <Typography>
+        <FormattedMessage id={title} />
+      </Typography>
     </Stack>
   );
 };
 
-ApiaryStatus.propTypes = {
+GatewayStatus.propTypes = {
   status: PropTypes.number
 };
 
@@ -273,6 +276,9 @@ export default function ApiaryTable() {
                       {locations[Math.floor(Math.random() * locations.length)]}{' '}
                       <EnvironmentOutlined />
                     </Typography>
+                  </TableCell>
+                  <TableCell align="left">
+                    <GatewayStatus status={row.gateway} />
                   </TableCell>
                   <TableCell align="left">
                     <NextLink
