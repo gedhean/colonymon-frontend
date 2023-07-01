@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // third-party
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 // next
 import NextLink from 'next/link';
@@ -11,29 +11,20 @@ import NextLink from 'next/link';
 import {
   Box,
   Button,
-  Chip,
   Divider,
   Link,
-  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TablePagination,
-  TableRow,
-  Typography
+  TableRow
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-
-// third-party
-// import { NumericFormat } from 'react-number-format';
 
 // project import
-import Dot from 'components/@extended/Dot';
-
-// assets
-import { ThunderboltTwoTone } from '@ant-design/icons';
+import HiveWellbeing from './HiveWellbeing';
+import HiveBatteryLevel from './HiveBatteryLevel';
 
 function createData(id, name, health, battery, update) {
   return { id, name, health, battery, update };
@@ -142,71 +133,6 @@ HiveTableHead.propTypes = {
   orderBy: PropTypes.string
 };
 
-// ==============================|| APIRAY TABLE - STATUS ||============================== //
-
-const BatteryLevel = ({ level }) => {
-  const theme = useTheme();
-  let color;
-  let title;
-
-  if (level <= 20) {
-    color = theme.palette.error.main;
-    title = 'low';
-  } else if (level <= 50) {
-    color = theme.palette.warning.main;
-    title = 'medium';
-  } else if (level <= 100) {
-    color = theme.palette.success.main;
-    title = 'high';
-  } else {
-    color = theme.palette.secondary.main;
-    title = 'unknown';
-  }
-
-  return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <ThunderboltTwoTone twoToneColor={color} />
-      <Typography>
-        {level}% (<FormattedMessage id={title} />)
-      </Typography>
-    </Stack>
-  );
-};
-
-BatteryLevel.propTypes = {
-  level: PropTypes.number
-};
-
-// ==============================|| APIARY TABLE - HEALTH ||============================== //
-const HiveHealth = ({ health }) => {
-  let color;
-  let title;
-
-  switch (health) {
-    case 0:
-      color = 'error';
-      title = 'Muito Fraca';
-      break;
-    case 1:
-      color = 'warning';
-      title = 'Fraca';
-      break;
-    case 2:
-      color = 'success';
-      title = 'Forte';
-      break;
-    default:
-      color = 'secondary';
-      title = 'Estado Desconhecido';
-  }
-
-  return (
-    <Stack useFlexGap direction="row" spacing={1} alignItems="center">
-      <Chip label={title} color={color} />
-    </Stack>
-  );
-};
-
 // ==============================|| APIARY TABLE ||============================== //
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
@@ -264,10 +190,10 @@ export default function HiveTable() {
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">
-                    <HiveHealth health={row.health} />
+                    <HiveWellbeing status={row.health} />
                   </TableCell>
                   <TableCell align="left">
-                    <BatteryLevel level={row.battery} />
+                    <HiveBatteryLevel level={row.battery} />
                   </TableCell>
                   <TableCell align="left">
                     <NextLink

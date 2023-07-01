@@ -1,18 +1,19 @@
 // third-party
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Grid } from '@mui/material';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
 
 // project imports
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import ReportCard from 'components/cards/statistics/ReportCard';
-import HiveLineChart from 'sections/hives/default/HiveLineChart';
+import HiveLineChart from 'sections/hives/HiveLineChart';
 import WeatherLineChart from 'sections/dashboard/default/WeatherLineChart';
-import BatteryLevelBarChart from 'sections/dashboard/default/BatteryLevelBarChart';
+import HiveBatteryLevel from 'sections/hives/HiveBatteryLevel';
+import HiveWellbeing from 'sections/hives/HiveWellbeing';
 import hivesData from 'data/hives';
 
 // assets
@@ -30,6 +31,31 @@ const HiveChartsPage = () => {
   return (
     <Page title="Gráficos">
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
+        <Grid item xs={12}>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            divider={<Divider orientation="vertical" flexItem />}
+          >
+            <Stack direction="row" spacing={1}>
+              <Typography variant="headline">
+                <FormattedMessage id="wellbeing" />
+              </Typography>
+              :
+              <HiveWellbeing status={0} />
+            </Stack>
+            <Stack direction="row" spacing={1}>
+              <Typography variant="headline">
+                <FormattedMessage id="battery-level" />
+              </Typography>
+              :
+              <HiveBatteryLevel level={100} />
+            </Stack>
+          </Stack>
+
+          <Stack direction="row" spacing={1} alignItems="center"></Stack>
+        </Grid>
         {/* Row 1 */}
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <ReportCard
