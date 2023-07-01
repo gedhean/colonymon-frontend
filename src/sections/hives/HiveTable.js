@@ -24,6 +24,7 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // third-party
 // import { NumericFormat } from 'react-number-format';
@@ -31,36 +32,30 @@ import {
 // project import
 import Dot from 'components/@extended/Dot';
 
-function createData(
-  id,
-  name,
-  humidity,
-  temperature,
-  weight,
-  health,
-  status,
-  update
-) {
-  return { id, name, temperature, humidity, weight, health, status, update };
+// assets
+import { ThunderboltTwoTone } from '@ant-design/icons';
+
+function createData(id, name, health, battery, update) {
+  return { id, name, health, battery, update };
 }
 
 const rows = [
-  createData(84564564, 'Flavor Been', 76, 27, 75, 0, 0, '06/10/2023'),
-  createData(98764564, 'Jaucou', 76, 20, 78, 1, 1, '06/10/2023'),
-  createData(98760564, 'Jaucolu', 76, 20, 78, 1, 1, '06/10/2023'),
-  createData(98756325, 'Human Dubs', 74, 23, 79, 1, 1, '06/10/2023'),
-  createData(98652366, 'Foncarow', 70, 31, 72, 2, 1, '06/10/2023'),
-  createData(13286564, 'Psycobee', 70, 17, 55, 2, 0, '06/10/2023'),
-  createData(86739658, 'Honey Favor', 30, 20, 70, 2, 2, '06/10/2023'),
-  createData(98753263, 'Barzory', 60, 20, 20, 0, 2, '06/10/2023'),
-  createData(98753275, 'Chevawsky', 22, 11, 33, 1, 1, '06/10/2023'),
-  createData(98753221, 'Chairmen King', 50, 40, 20, 1, 0, '06/10/2023'),
-  createData(98753211, 'Chairmen King', 50, 21, 23, 0, 1, '06/10/2023'),
-  createData(98753321, 'Chairmen King', 30, 34, 23, 2, 1, '06/10/2023'),
-  createData(98423291, 'Chairmen King', 15, 20, 20, 0, 0, '06/10/2023'),
-  createData(98234291, 'Chairmen King', 25, 20, 29, 1, 0, '06/10/2023'),
-  createData(98356291, 'Chairmen King', 53, 20, 25, 1, 1, '06/10/2023'),
-  createData(98345291, 'Chairmen King', 31, 30, 31, 0, 1, '06/10/2023')
+  createData(84564564, 'Flavor Been', 0, 0),
+  createData(98764564, 'Jaucou', 1, 5),
+  createData(98760564, 'Jaucolu', 1, 100),
+  createData(98756325, 'Human Dubs', 1, 50),
+  createData(98652366, 'Foncarow', 2, 100),
+  createData(13286564, 'Psycobee', 2, 20),
+  createData(86739658, 'Honey Favor', 2, 25),
+  createData(98753263, 'Barzory', 0, 70),
+  createData(98753275, 'Chevawsky', 1, 90),
+  createData(98753221, 'Chairmen King', 1, 60),
+  createData(98753211, 'Chairmen King', 0, 69),
+  createData(98753321, 'Chairmen King', 2, 100),
+  createData(98423291, 'Chairmen King', 0, 0),
+  createData(98234291, 'Chairmen King', 1, 0),
+  createData(98356291, 'Chairmen King', 1, 5),
+  createData(98345291, 'Chairmen King', 0, 1)
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -105,27 +100,12 @@ const headCells = [
     disablePadding: 'normal'
   },
   {
-    id: 'temperature',
-    align: 'left',
-    disablePadding: false
-  },
-  {
-    id: 'humidity',
-    align: 'left',
-    disablePadding: false
-  },
-  {
-    id: 'weight',
-    align: 'left',
-    disablePadding: false
-  },
-  {
     id: 'wellbeing',
     align: 'left',
     disablePadding: 'normal'
   },
   {
-    id: 'getaway',
+    id: 'battery-level',
     align: 'left',
     disablePadding: false
   },
@@ -164,37 +144,37 @@ HiveTableHead.propTypes = {
 
 // ==============================|| APIRAY TABLE - STATUS ||============================== //
 
-const ApiaryStatus = ({ status }) => {
+const BatteryLevel = ({ level }) => {
+  const theme = useTheme();
   let color;
   let title;
 
-  switch (status) {
-    case 0:
-      color = 'error';
-      title = 'offline';
-      break;
-    case 1:
-      color = 'success';
-      title = 'online';
-      break;
-
-    default:
-      color = 'primary';
-      title = 'unknown';
+  if (level <= 20) {
+    color = theme.palette.error.main;
+    title = 'low';
+  } else if (level <= 50) {
+    color = theme.palette.warning.main;
+    title = 'medium';
+  } else if (level <= 100) {
+    color = theme.palette.success.main;
+    title = 'high';
+  } else {
+    color = theme.palette.secondary.main;
+    title = 'unknown';
   }
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <Dot color={color} />
+      <ThunderboltTwoTone twoToneColor={color} />
       <Typography>
-        <FormattedMessage id={title} />
+        {level}% (<FormattedMessage id={title} />)
       </Typography>
     </Stack>
   );
 };
 
-ApiaryStatus.propTypes = {
-  status: PropTypes.number
+BatteryLevel.propTypes = {
+  level: PropTypes.number
 };
 
 // ==============================|| APIARY TABLE - HEALTH ||============================== //
@@ -223,54 +203,6 @@ const HiveHealth = ({ health }) => {
   return (
     <Stack useFlexGap direction="row" spacing={1} alignItems="center">
       <Chip label={title} color={color} />
-    </Stack>
-  );
-};
-
-// ==============================|| HIVE TABLE - TEMPERATURE ||============================== //
-
-const HiveTemperature = ({ temperature }) => {
-  return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>{temperature}</Typography>
-    </Stack>
-  );
-};
-
-// ==============================|| HIVE TABLE -  LAST UPDATE ||============================== //
-
-const HiveLastUpdate = ({ update }) => {
-  let date1 = new Date();
-  const date2 = new Date(update);
-  let formattedDate = new Date(update).toLocaleDateString();
-  const diffTime = Math.abs(date2 - date1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return (
-    <Stack direction="column" spacing={-3} alignItems="left">
-      <Typography>{formattedDate}</Typography> <br />
-      <Typography variant="caption" color="secondary.main">
-        {diffDays} dias atrás.
-      </Typography>
-    </Stack>
-  );
-};
-
-// ==============================|| HIVE TABLE - HUMIDITY ||============================== //
-
-const HiveHumidity = ({ humidity }) => {
-  return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>{humidity}</Typography>
-    </Stack>
-  );
-};
-
-// ==============================|| HIVE TABLE - WEIGHT ||============================== //
-
-const HiveWeight = ({ weight }) => {
-  return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>{weight}</Typography>
     </Stack>
   );
 };
@@ -332,19 +264,10 @@ export default function HiveTable() {
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">
-                    <HiveTemperature temperature={row.temperature} />
-                  </TableCell>
-                  <TableCell align="left">
-                    <HiveHumidity humidity={row.humidity} />
-                  </TableCell>
-                  <TableCell align="left">
-                    <HiveWeight weight={row.weight} />
-                  </TableCell>
-                  <TableCell align="left">
                     <HiveHealth health={row.health} />
                   </TableCell>
                   <TableCell align="left">
-                    <ApiaryStatus status={row.status} />
+                    <BatteryLevel level={row.battery} />
                   </TableCell>
                   <TableCell align="left">
                     <NextLink
