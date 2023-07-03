@@ -37,7 +37,7 @@ import isBlank from 'utils/isBlank';
 
 const DashboardDefault = () => {
   const { formatMessage } = useIntl();
-  const { location: defaultLocation, i18n } = useConfig();
+  const { location: defaultLocation } = useConfig();
   const [slot, setSlot] = useState('week');
   const [location, setLocation] = useState(defaultLocation);
   const [welcomeDismissed] = useLocalStorage('welcomeBanner', false);
@@ -49,6 +49,14 @@ const DashboardDefault = () => {
 
   const handleSlotChange = (newSlot) => {
     if (newSlot !== null) setSlot(newSlot);
+  };
+
+  // Beehives data
+  const beehivesStats = {
+    strong: 120,
+    weak: 12,
+    poor: 15,
+    total: 157
   };
 
   return (
@@ -68,37 +76,33 @@ const DashboardDefault = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title={formatMessage({ id: 'hives-health' })}
-            count="120"
-            percentage={4.1}
-            extra="5"
+            title={formatMessage({ id: 'hives-strong' })}
+            count={beehivesStats.strong}
+            previousCount={100}
+            period="month"
             color="success"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-weak' })}
-            count="12"
-            percentage={50.0}
-            extra="6"
-            color="warning"
+            count={beehivesStats.weak}
+            previousCount={10}
+            period="month"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
-            title={formatMessage({ id: 'hives-sick' })}
-            count="1"
-            percentage={27.4}
-            isLoss
-            color="error"
-            extra="5"
+            title={formatMessage({ id: 'hives-poor' })}
+            count={beehivesStats.poor}
+            previousCount={50}
+            period="week"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-total' })}
-            count="200"
-            percentage={27.4}
+            count={beehivesStats.total}
           />
         </Grid>
 
@@ -118,7 +122,11 @@ const DashboardDefault = () => {
             </Grid>
           </Grid>
           <MainCard content={false} sx={{ mt: 1.5 }}>
-            <WellbeingDonutChart />
+            <WellbeingDonutChart
+              strong={beehivesStats.strong}
+              weak={beehivesStats.weak}
+              poor={beehivesStats.poor}
+            />
           </MainCard>
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
