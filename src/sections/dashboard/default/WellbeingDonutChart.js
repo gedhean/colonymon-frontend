@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 
+// third-party
+import { useIntl } from 'react-intl';
+
 // next
 import dynamic from 'next/dynamic';
 
@@ -21,7 +24,6 @@ const chartOptions = {
   chart: {
     type: 'donut'
   },
-  labels: ['Bem-estar', 'Fraca', 'Muito Fraca'],
   legend: {
     show: true,
     fontFamily: `'Open Sans', sans-serif`,
@@ -66,10 +68,12 @@ const chartOptions = {
 
 // ==============================|| INCOME AREA CHART ||============================== //
 
-const WellbeingDonutChart = () => {
+const WellbeingDonutChart = ({ strong, weak, poor }) => {
   const theme = useTheme();
   const { mode } = useConfig();
+  const { formatMessage } = useIntl();
   const [options, setOptions] = useState(chartOptions);
+  const [series] = useState([strong, weak, poor]);
 
   const { primary } = theme.palette.text;
 
@@ -84,6 +88,11 @@ const WellbeingDonutChart = () => {
     setOptions((prevState) => ({
       ...prevState,
       colors: [successDark, orangeDark, errorDark],
+      labels: [
+        formatMessage({ id: 'strong' }),
+        formatMessage({ id: 'weak' }),
+        formatMessage({ id: 'poor' })
+      ],
       xaxis: {
         labels: {
           style: {
@@ -115,8 +124,6 @@ const WellbeingDonutChart = () => {
     }));
   }, [mode, primary, line, backColor, successDark, orangeDark, errorDark]);
 
-  const [series] = useState([44, 55, 13]);
-
   return (
     <Box id="chart" sx={{ bgcolor: 'transparent' }}>
       <ReactApexChart
@@ -130,6 +137,9 @@ const WellbeingDonutChart = () => {
 };
 
 WellbeingDonutChart.propTypes = {
+  strong: PropTypes.number,
+  weak: PropTypes.number,
+  poor: PropTypes.number,
   slot: PropTypes.string
 };
 
