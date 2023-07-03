@@ -135,8 +135,8 @@ const GatewayAreaChart = ({ slot }) => {
         name: formatMessage({ id: 'availability' }),
         data:
           slot === 'month'
-            ? [76, 85, 100, 98, 87, 100, 91, 100, 94, 86, 100, 35]
-            : [31, 40, 28, 51, 42, 10, 100]
+            ? [99, 100, 100, 98, 97, 100, 90, 100, 94, 100, 100, 100]
+            : [100, 100, 100, 100, 100, 100, 100]
       }
     ]);
   }, [formatMessage, slot]);
