@@ -162,7 +162,7 @@ const HiveLineChart = ({
         padding: '0 20px'
       }}
     >
-      <Typography variant="h5" sx={{ ml: '25px', mb: '5px', mt: '10px' }}>
+      <Typography variant="h5" sx={{ ml: 3, mb: 0.5, mt: 3 }}>
         {title}
       </Typography>
       <ReactApexChart
