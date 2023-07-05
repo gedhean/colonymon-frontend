@@ -24,12 +24,12 @@ const AnalyticEcommerce = ({ color, title, count, previousCount, period }) => {
   return (
     <MainCard contentSX={{ p: 2.25 }}>
       <Stack spacing={0.5}>
-        <Typography variant="h6" color="">
+        <Typography variant="h6" color="textSecondary">
           {title}
         </Typography>
         <Grid container alignItems="center">
           <Grid item>
-            <Typography variant="h4" color={color || 'inherit'}>
+            <Typography variant="h4" color="inherit">
               {count}
             </Typography>
           </Grid>
