@@ -20,13 +20,13 @@ import {
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
-import WelcomeBanner from 'sections/dashboard/default/WelcomeBanner';
-import WeightBarChart from 'sections/dashboard/default/WeightBarChart';
+import WelcomeBanner from 'sections/dashboard/WelcomeBanner';
+import WeightBarChart from 'sections/dashboard/WeightBarChart';
 import LocationSearchInput from 'sections/dashboard/LocationSearchInput';
-import WeatherLineChart from 'sections/dashboard/default/WeatherLineChart';
-import GatewayAreaChart from 'sections/dashboard/default/GatewayAreaChart';
+import WeatherLineChart from 'sections/dashboard/WeatherLineChart';
+import GatewayAreaChart from 'sections/dashboard/GatewayAreaChart';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
-import WellbeingDonutChart from 'sections/dashboard/default/WellbeingDonutChart';
+import WellbeingDonutChart from 'sections/dashboard/WellbeingDonutChart';
 
 import useConfig from 'hooks/useConfig';
 import useLocalStorage from 'hooks/useLocalStorage';

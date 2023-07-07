@@ -16,7 +16,7 @@ import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import ReportCard from 'components/cards/statistics/ReportCard';
 import HiveLineChart from 'sections/hives/HiveLineChart';
-import WeatherLineChart from 'sections/dashboard/default/WeatherLineChart';
+import WeatherLineChart from 'sections/dashboard/WeatherLineChart';
 import HiveBatteryLevel from 'sections/hives/HiveBatteryLevel';
 import HiveWellbeing from 'sections/hives/HiveWellbeing';
 import hivesData from 'data/hives';
