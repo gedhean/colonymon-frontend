@@ -14,6 +14,12 @@ export let users = [
     name: 'Colony Mon',
     email: 'colonymon@gmail.com',
     password: '123456'
+  },
+  {
+    id: 2,
+    name: 'Jone Doe',
+    email: 'info@codedthemes.com',
+    password: '123456'
   }
 ];
 
