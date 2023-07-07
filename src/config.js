@@ -81,14 +81,7 @@ const config = {
    * the props used for theme primary color variants
    * we provide static below options thoe s are already defaine in src/themes/theme -
    * 'default'
-   * 'theme1'
-   * 'theme2'
-   * 'theme3'
-   * 'theme4'
-   * 'theme5'
-   * 'theme6'
-   * 'theme7'
-   * 'theme8'
+   * 'colonymon
    */
   presetColor: 'colonymon',
 
