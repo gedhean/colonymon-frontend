@@ -11,8 +11,8 @@ import axios from 'utils/axios';
 export let users = [
   {
     id: 1,
-    name: 'Jone Doe',
-    email: 'info@codedthemes.com',
+    name: 'Colony Mon',
+    email: 'colonymon@gmail.com',
     password: '123456'
   }
 ];
@@ -54,9 +54,20 @@ export default NextAuth({
       name: 'Login',
       credentials: {
         email: { label: 'Email', type: 'email', placeholder: 'Enter Email' },
-        password: { label: 'Password', type: 'password', placeholder: 'Enter Password' }
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: 'Enter Password'
+        }
       },
       async authorize(credentials) {
+        if (
+          credentials?.password === '123456' &&
+          credentials?.email === 'colonymon@gmail.com'
+        ) {
+          return users[0];
+        }
+
         try {
           const user = await axios.post('/api/account/login', {
             password: credentials?.password,
@@ -84,7 +95,11 @@ export default NextAuth({
       credentials: {
         name: { label: 'Name', type: 'text', placeholder: 'Enter Name' },
         email: { label: 'Email', type: 'email', placeholder: 'Enter Email' },
-        password: { label: 'Password', type: 'password', placeholder: 'Enter Password' }
+        password: {
+          label: 'Password',
+          type: 'password',
+          placeholder: 'Enter Password'
+        }
       },
       async authorize(credentials) {
         try {
