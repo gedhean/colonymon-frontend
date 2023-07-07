@@ -27,7 +27,6 @@ import {
 } from '@mui/material';
 
 // project import
-import SettingTab from './SettingTab';
 import ProfileTab from './ProfileTab';
 import Avatar from 'components/@extended/Avatar';
 import MainCard from 'components/MainCard';
@@ -38,14 +37,20 @@ import { ThemeMode } from 'config';
 import useUser from 'hooks/useUser';
 
 // assets
-import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 
 const avatar1 = 'assets/images/users/avatar-1.png';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
   return (
-    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`} {...other}>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`profile-tabpanel-${index}`}
+      aria-labelledby={`profile-tab-${index}`}
+      {...other}
+    >
       {value === index && children}
     </div>
   );
@@ -77,10 +82,14 @@ const Profile = () => {
   const handleLogout = () => {
     switch (provider) {
       case 'auth0':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/auth0` });
+        signOut({
+          callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/auth0`
+        });
         break;
       case 'cognito':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/cognito` });
+        signOut({
+          callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/cognito`
+        });
         break;
       default:
         signOut({ redirect: false });
@@ -109,7 +118,8 @@ const Profile = () => {
     setValue(newValue);
   };
 
-  const iconBackColorOpen = theme.palette.mode === ThemeMode.DARK ? 'grey.200' : 'grey.300';
+  const iconBackColorOpen =
+    theme.palette.mode === ThemeMode.DARK ? 'grey.200' : 'grey.300';
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.75 }}>
@@ -118,7 +128,12 @@ const Profile = () => {
           p: 0.25,
           bgcolor: open ? iconBackColorOpen : 'transparent',
           borderRadius: 1,
-          '&:hover': { bgcolor: theme.palette.mode === ThemeMode.DARK ? 'secondary.light' : 'secondary.lighter' },
+          '&:hover': {
+            bgcolor:
+              theme.palette.mode === ThemeMode.DARK
+                ? 'secondary.light'
+                : 'secondary.lighter'
+          },
           '&:focus-visible': {
             outline: `2px solid ${theme.palette.secondary.dark}`,
             outlineOffset: 2
@@ -131,9 +146,21 @@ const Profile = () => {
         onClick={handleToggle}
       >
         {user && (
-          <Stack direction="row" spacing={1.5} alignItems="center" sx={{ p: 0.25, px: 0.75 }}>
-            <Avatar alt={user.name} src={user.avatar} sx={{ width: 30, height: 30 }} />
-            <Typography variant="subtitle1"> {capitalize(user.name)}</Typography>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            alignItems="center"
+            sx={{ p: 0.25, px: 0.75 }}
+          >
+            <Avatar
+              alt={user.name}
+              src={user.avatar}
+              sx={{ width: 30, height: 30 }}
+            />
+            <Typography variant="subtitle1">
+              {' '}
+              {capitalize(user.name)}
+            </Typography>
           </Stack>
         )}
       </ButtonBase>
@@ -156,7 +183,12 @@ const Profile = () => {
         }}
       >
         {({ TransitionProps }) => (
-          <Transitions type="grow" position="top-right" in={open} {...TransitionProps}>
+          <Transitions
+            type="grow"
+            position="top-right"
+            in={open}
+            {...TransitionProps}
+          >
             <Paper
               sx={{
                 boxShadow: theme.customShadows.z1,
@@ -171,10 +203,22 @@ const Profile = () => {
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard elevation={0} border={false} content={false}>
                   <CardContent sx={{ px: 2.5, pt: 3 }}>
-                    <Grid container justifyContent="space-between" alignItems="center">
+                    <Grid
+                      container
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
                       <Grid item>
-                        <Stack direction="row" spacing={1.25} alignItems="center">
-                          <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                        <Stack
+                          direction="row"
+                          spacing={1.25}
+                          alignItems="center"
+                        >
+                          <Avatar
+                            alt="profile user"
+                            src={avatar1}
+                            sx={{ width: 32, height: 32 }}
+                          />
                           <Stack>
                             <Typography variant="h6">{user?.name}</Typography>
                             <Typography variant="body2" color="textSecondary">
@@ -185,7 +229,11 @@ const Profile = () => {
                       </Grid>
                       <Grid item>
                         <Tooltip title="Logout">
-                          <IconButton size="large" sx={{ color: 'text.primary' }} onClick={handleLogout}>
+                          <IconButton
+                            size="large"
+                            sx={{ color: 'text.primary' }}
+                            onClick={handleLogout}
+                          >
                             <LogoutOutlined />
                           </IconButton>
                         </Tooltip>
@@ -194,7 +242,12 @@ const Profile = () => {
                   </CardContent>
 
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
+                    <Tabs
+                      variant="fullWidth"
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="profile tabs"
+                    >
                       <Tab
                         sx={{
                           display: 'flex',
@@ -203,30 +256,19 @@ const Profile = () => {
                           alignItems: 'center',
                           textTransform: 'capitalize'
                         }}
-                        icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Profile"
+                        icon={
+                          <UserOutlined
+                            style={{ marginBottom: 0, marginRight: '10px' }}
+                          />
+                        }
+                        label={<FormattedMessage id="profile" />}
                         {...a11yProps(0)}
                       />
-                      {/* <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize'
-                        }}
-                        icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                        label="Setting"
-                        {...a11yProps(1)}
-                      /> */}
                     </Tabs>
                   </Box>
                   <TabPanel value={value} index={0} dir={theme.direction}>
                     <ProfileTab handleLogout={handleLogout} />
                   </TabPanel>
-                  {/* <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel> */}
                 </MainCard>
               </ClickAwayListener>
             </Paper>
