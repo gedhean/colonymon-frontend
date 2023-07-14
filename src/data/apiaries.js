@@ -5575,4 +5575,36 @@ const apiaries = [
   }
 ];
 
+/**
+ * [
+  '{{repeat(5, 7)}}',
+  {
+    id: '{{index()+1}}',
+    name: '{{surname()}}',
+    latitude: '{{floating(-90.000001, 90)}}',
+    longitude: '{{floating(-180.000001, 180)}}',
+    gateway: '{{random(0, 1)}}',
+    hives: [
+      '{{repeat(10)}}',
+      {
+        id: '{{index()+1}}',
+        name: '{{surname()}}',
+        health: '{{random(0, 1, 2)}}',
+        battery:  '{{integer(0,100)}}',
+        samples: [
+          '{{repeat(12)}}',
+          {
+            temperature: '{{integer(32,37)}}',
+            umidity: '{{integer(20,80)}}',
+            weight: '{{integer(50,100)}}',
+            co2: '{{integer(25,200)}}',
+            vibration: '{{random(0, 1)}}'
+          }
+        ]
+      }
+    ]
+  }
+]
+ */
+
 export default apiaries;

@@ -99,8 +99,8 @@ const HiveLineChart = ({
       },
       xaxis: {
         show: false,
-        type: 'datetime',
-        format: 'HH:mm',
+        // type: 'datetime',
+        // format: 'HH:mm',
         // categories,
         axisBorder: {
           show: true,

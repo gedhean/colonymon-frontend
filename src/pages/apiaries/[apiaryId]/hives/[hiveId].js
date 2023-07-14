@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 // third-party
 import { FormattedMessage, useIntl } from 'react-intl';
 import sub from 'date-fns/sub';
+import format from 'date-fns/format';
 
 // nextjs
 import { useRouter } from 'next/router';
@@ -57,9 +58,12 @@ const HiveChartsPage = () => {
     return (
       samples?.map((sample, index) => {
         return {
-          x: sub(now, {
-            hours: samples.length - index + 2
-          }).getTime(),
+          x: format(
+            sub(now, {
+              hours: samples.length - index - 1
+            }),
+            'HH:mm'
+          ),
           y: sample[key]
         };
       }) ?? []
