@@ -80,8 +80,8 @@ const WeatherLineChart = ({ latitude, longitude }) => {
           }
         },
         xaxis: {
-          type: 'datetime',
-          format: 'HH:mm',
+          // type: 'datetime',
+          // format: 'HH:mm',
           // categories: weather.data.time,
           // type: 'category',
           // formatter: (value) => format(new Date(value), 'd MMM HH:mm'),
@@ -159,9 +159,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
         annotations: {
           xaxis: [
             {
-              x:
-                new Date().getTime() -
-                new Date().getTimezoneOffset() * 60 * 1000,
+              x: format(new Date(), 'HH:mm'),
               borderColor: primary,
               label: {
                 style: {
@@ -201,10 +199,10 @@ const WeatherLineChart = ({ latitude, longitude }) => {
     if (weather.loading) return;
 
     const timeseries = weather.data?.time?.map((time) =>
-      new Date(time).getTime()
+      format(new Date(time), 'HH:mm')
     );
     const toTimeSerie = (data) =>
-      data?.map((value, index) => [timeseries?.[index], value]);
+      data?.map((value, index) => ({ x: timeseries[index], y: value }));
 
     setSeries([
       {
