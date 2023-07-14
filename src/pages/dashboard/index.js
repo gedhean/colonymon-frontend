@@ -6,10 +6,8 @@ import { FormattedDate, FormattedMessage, useIntl } from 'react-intl';
 
 // material-ui
 import {
-  Box,
   Button,
   Grid,
-  Link,
   Stack,
   ToggleButton,
   ToggleButtonGroup,
@@ -22,30 +20,22 @@ import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import WelcomeBanner from 'sections/dashboard/WelcomeBanner';
 import WeightBarChart from 'sections/dashboard/WeightBarChart';
-import LocationSearchInput from 'sections/dashboard/LocationSearchInput';
-import WeatherLineChart from 'sections/dashboard/WeatherLineChart';
 import GatewayAreaChart from 'sections/dashboard/GatewayAreaChart';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
 import WellbeingDonutChart from 'sections/dashboard/WellbeingDonutChart';
 
-import useConfig from 'hooks/useConfig';
+import useApiaries from 'hooks/useApiaries';
 import useLocalStorage from 'hooks/useLocalStorage';
 
-import isBlank from 'utils/isBlank';
+import AttentionTable from 'sections/dashboard/AttentionTable';
 
 // ==============================|| DASHBOARD - DEFAULT ||============================== //
 
 const DashboardDefault = () => {
   const { formatMessage } = useIntl();
-  const { location: defaultLocation } = useConfig();
   const [slot, setSlot] = useState('week');
-  const [location, setLocation] = useState(defaultLocation);
   const [welcomeDismissed] = useLocalStorage('welcomeBanner', false);
-
-  const handleLocationChange = (location) => {
-    if (isBlank(location)) setLocation(defaultLocation);
-    else setLocation(location);
-  };
+  const apiaries = useApiaries();
 
   const handleSlotChange = (newSlot) => {
     if (newSlot !== null) setSlot(newSlot);
@@ -77,7 +67,7 @@ const DashboardDefault = () => {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-strong' })}
-            count={beehivesStats.strong}
+            count={apiaries.hivesStats.healthy}
             previousCount={100}
             period="month"
             color="success"
@@ -86,7 +76,7 @@ const DashboardDefault = () => {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-weak' })}
-            count={beehivesStats.weak}
+            count={apiaries.hivesStats.weak}
             previousCount={10}
             period="month"
           />
@@ -94,7 +84,7 @@ const DashboardDefault = () => {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-poor' })}
-            count={beehivesStats.poor}
+            count={apiaries.hivesStats.poor}
             previousCount={50}
             period="week"
           />
@@ -102,7 +92,7 @@ const DashboardDefault = () => {
         <Grid item xs={12} sm={6} md={4} lg={3}>
           <AnalyticEcommerce
             title={formatMessage({ id: 'hives-total' })}
-            count={beehivesStats.total}
+            count={apiaries.hivesStats.total}
           />
         </Grid>
 
@@ -252,29 +242,12 @@ const DashboardDefault = () => {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item>
               <Typography variant="h5">
-                <FormattedMessage id="local-weather" />
+                <FormattedMessage id="attention-required" />
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                <FormattedMessage id="local" />:{' '}
-                {`${location?.name}${
-                  location?.admin1 ? ', ' + location.admin1 : ''
-                }`}
-                . <FormattedMessage id="source" />:{' '}
-                <Link href="https://open-meteo.com" target="_blank">
-                  https://open-meteo.com
-                </Link>
-                .
-              </Typography>
-            </Grid>
-            <Grid item>
-              <LocationSearchInput onChange={handleLocationChange} />
             </Grid>
           </Grid>
           <MainCard sx={{ mt: 2 }} content={false}>
-            <WeatherLineChart
-              latitude={location?.latitude}
-              longitude={location?.longitude}
-            />
+            <AttentionTable hives={apiaries.hivesAttention} />
           </MainCard>
         </Grid>
       </Grid>

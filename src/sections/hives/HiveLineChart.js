@@ -78,15 +78,16 @@ const HiveLineChart = ({
   const line = theme.palette.divider;
   const { secondary } = theme.palette.text;
   const [options, setOptions] = useState(chartOptions);
-  const [categories] = useState(data.categories);
-  const [series] = useState([data.series]);
+  const [series, setSeries] = useState([]);
+
+  console.log(data);
 
   const colorLevel = theme.palette[paletteGroup].main;
 
   useEffect(() => {
     setOptions((prevState) => ({
       ...prevState,
-      colors: Array.from({ length: categories.length }, () => () => colorLevel),
+      colors: [colorLevel],
       chart: {
         background:
           theme.palette.mode === ThemeMode.DARK
@@ -98,20 +99,20 @@ const HiveLineChart = ({
       },
       xaxis: {
         show: false,
-        categories,
+        type: 'datetime',
+        format: 'HH:mm',
+        // categories,
         axisBorder: {
           show: true,
           color: secondary
         },
         labels: {
           style: {
-            colors: Array.from({ length: categories.length }, () => secondary)
+            colors: [secondary]
           }
         }
       },
       yaxis: {
-        min: minRange,
-        max: maxRange,
         show: true,
         labels: {
           formatter: (val) => val + ` ${toolFormatter}`,
@@ -130,6 +131,11 @@ const HiveLineChart = ({
       grid: {
         borderColor: line
       },
+      tooltip: {
+        x: {
+          format: 'dd/MM/yy HH:mm'
+        }
+      },
       theme: {
         mode: mode === ThemeMode.DARK ? 'dark' : 'light'
       }
@@ -139,7 +145,6 @@ const HiveLineChart = ({
     secondary,
     line,
     theme,
-    categories,
     colorLevel,
     toolFormatter,
     formatterLegendTextY,
@@ -147,6 +152,17 @@ const HiveLineChart = ({
     minRange,
     data
   ]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setSeries([
+  //       {
+  //         name: 'sample',
+  //         data
+  //       }
+  //     ]);
+  //   }, 200);
+  // }, [data]);
 
   return (
     <Box
@@ -167,7 +183,7 @@ const HiveLineChart = ({
       </Typography>
       <ReactApexChart
         options={options}
-        series={series}
+        series={[{ name: 'sample', data }]}
         height={300}
         type="line"
         width="100%"

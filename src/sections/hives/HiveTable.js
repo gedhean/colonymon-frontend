@@ -140,11 +140,30 @@ HiveTableHead.propTypes = {
   orderBy: PropTypes.string
 };
 
+// ==============================|| APIARY TABLE - SEE APIARY BUTTON ||============================== //
+
+export const SeeHiveButton = ({ hiveId, apiaryId }) => (
+  <NextLink
+    href={`/apiaries/${apiaryId}/hives/${hiveId}`}
+    passHref
+    legacyBehavior
+  >
+    <Button color="info" variant="outlined" size="small">
+      <FormattedMessage id="view-hives-data" />
+    </Button>
+  </NextLink>
+);
+
+SeeHiveButton.propTypes = {
+  hiveId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  apiaryId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
+
 // ==============================|| APIARY TABLE ||============================== //
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
 
-export default function HiveTable() {
+export default function HiveTable({ hives, apiaryId }) {
   const [order] = useState('asc');
   const [orderBy] = useState('id');
   const [page, setPage] = useState(DEFAULT_PAGE);
@@ -172,7 +191,7 @@ export default function HiveTable() {
           <HiveTableHead order={order} orderBy={orderBy} />
           <TableBody>
             {stableSort(
-              rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+              hives.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
               getComparator(order, orderBy)
             ).map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
@@ -192,7 +211,7 @@ export default function HiveTable() {
                     align="left"
                   >
                     <NextLink
-                      href={`/apiaries/${row.apiaryId}/hives/${row.id}`}
+                      href={`/apiaries/${apiaryId}/hives/${row.id}`}
                       passHref
                       legacyBehavior
                     >
@@ -207,15 +226,7 @@ export default function HiveTable() {
                     <HiveBatteryLevel level={row.battery} />
                   </TableCell>
                   <TableCell align="left">
-                    <NextLink
-                      href={`/apiaries/${row.apiaryId}/hives/${row.id}`}
-                      passHref
-                      legacyBehavior
-                    >
-                      <Button color="info" variant="outlined" size="small">
-                        <FormattedMessage id="view-hives-data" />
-                      </Button>
-                    </NextLink>
+                    <SeeHiveButton hiveId={row.id} apiaryId={apiaryId} />
                   </TableCell>
                 </TableRow>
               );

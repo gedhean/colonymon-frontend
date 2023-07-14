@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // third-party
+import merge from 'lodash/merge';
+import format from 'date-fns/format';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 // next
@@ -59,150 +61,176 @@ const WeatherLineChart = ({ latitude, longitude }) => {
   const [series, setSeries] = useState([]);
   const [options, setOptions] = useState(chartOptions);
 
+  const nowLabel = formatMessage({ id: 'now' });
+  const temperatureLabel = formatMessage({ id: 'temperature' });
+  const humidityLabel = formatMessage({ id: 'humidity' });
+  const uvLabel = formatMessage({ id: 'uv-index' });
+
   useEffect(() => {
-    setOptions((prevState) => ({
-      ...prevState,
-      colors: [temperatureColor, humidityColor, uvColor],
-      chart: {
-        background:
-          theme.palette.mode === ThemeMode.DARK
-            ? 'secondary.lighter'
-            : 'primary.lighter',
-        toolbar: {
-          show: false
-        }
-      },
-      xaxis: {
-        type: 'datetime',
-        format: 'HH:mm',
-        categories: weather.data.time,
-        title: {
-          text: 'Hora'
-        },
-        labels: {
-          style: {
-            colors: secondary
-          }
-        }
-      },
-      yaxis: [
-        {
-          min: 15,
-          max: 50,
-          forceNiceScale: true,
-          title: {
-            text: `${formatMessage({ id: 'temperature' })} (°C)`,
-            style: {
-              color: secondary,
-              fontWeight: theme.typography.fontWeightRegular
-            }
-          },
-          labels: {
-            formatter: (value) => `${value}°C`,
-            style: {
-              colors: secondary
-            }
+    setOptions((prevState) =>
+      merge({}, prevState, {
+        colors: [temperatureColor, humidityColor, uvColor],
+        chart: {
+          background:
+            theme.palette.mode === ThemeMode.DARK
+              ? 'secondary.lighter'
+              : 'primary.lighter',
+          toolbar: {
+            show: false
           }
         },
-        {
-          forceNiceScale: true,
+        xaxis: {
+          type: 'datetime',
+          format: 'HH:mm',
+          // categories: weather.data.time,
+          // type: 'category',
+          // formatter: (value) => format(new Date(value), 'd MMM HH:mm'),
           title: {
-            text: `${formatMessage({ id: 'humidity' })}  (%)`,
-            style: {
-              color: secondary,
-              fontWeight: theme.typography.fontWeightRegular
-            }
-          },
-          labels: {
-            formatter: (value) => `${value}%`,
-            style: {
-              colors: secondary
-            }
-          }
-        },
-        {
-          opposite: true,
-          forceNiceScale: true,
-          min: 0,
-          max: 12,
-          title: {
-            text: `${formatMessage({ id: 'uv-index' })}`,
-            style: {
-              color: secondary,
-              fontWeight: theme.typography.fontWeightRegular
-            }
+            text: 'Hora'
           },
           labels: {
             style: {
               colors: secondary
             }
           }
-        }
-      ],
-      grid: {
-        borderColor: line
-      },
-      tooltip: {
-        x: {
-          format: 'dd/MM/yy HH:mm'
-        }
-      },
-      annotations: {
-        xaxis: [
+        },
+        yaxis: [
           {
-            x:
-              new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000,
-            borderColor: primary,
-            label: {
+            min: 15,
+            max: 50,
+            forceNiceScale: true,
+            title: {
+              text: temperatureLabel,
               style: {
-                background: bgColor,
-                color: primary
-              },
-              text: formatMessage({ id: 'now' })
+                color: secondary,
+                fontWeight: theme.typography.fontWeightRegular
+              }
+            },
+            labels: {
+              formatter: (value) => `${value}°C`,
+              style: {
+                colors: secondary
+              }
+            }
+          },
+          {
+            forceNiceScale: true,
+            title: {
+              text: humidityLabel,
+              style: {
+                color: secondary,
+                fontWeight: theme.typography.fontWeightRegular
+              }
+            },
+            labels: {
+              formatter: (value) => `${value}%`,
+              style: {
+                colors: secondary
+              }
+            }
+          },
+          {
+            opposite: true,
+            forceNiceScale: true,
+            min: 0,
+            max: 12,
+            title: {
+              text: uvLabel,
+              style: {
+                color: secondary,
+                fontWeight: theme.typography.fontWeightRegular
+              }
+            },
+            labels: {
+              style: {
+                colors: secondary
+              }
             }
           }
-        ]
-      },
-      theme: {
-        mode: mode === ThemeMode.DARK ? 'dark' : 'light'
-      }
-    }));
+        ],
+        grid: {
+          borderColor: line
+        },
+        tooltip: {
+          x: {
+            format: 'dd/MM/yy HH:mm'
+          }
+        },
+        annotations: {
+          xaxis: [
+            {
+              x:
+                new Date().getTime() -
+                new Date().getTimezoneOffset() * 60 * 1000,
+              borderColor: primary,
+              label: {
+                style: {
+                  background: bgColor,
+                  color: primary
+                },
+                text: nowLabel
+              }
+            }
+          ]
+        },
+        theme: {
+          mode: mode === ThemeMode.DARK ? 'dark' : 'light'
+        }
+      })
+    );
   }, [
     mode,
     primary,
     line,
     grey200,
     secondary,
-    weather.data.time,
+    // weather.data.time,
     temperatureColor,
     humidityColor,
     uvColor,
     theme.typography.fontWeightRegular,
     bgColor,
     theme.palette.mode,
-    formatMessage
+    temperatureLabel,
+    humidityLabel,
+    uvLabel,
+    nowLabel
   ]);
 
   useEffect(() => {
+    if (weather.loading) return;
+
+    const timeseries = weather.data?.time?.map((time) =>
+      new Date(time).getTime()
+    );
+    const toTimeSerie = (data) =>
+      data?.map((value, index) => [timeseries?.[index], value]);
+
     setSeries([
       {
         name: 'Temperature',
-        data: weather.data.temperature
+        data: toTimeSerie(weather.data.temperature)
       },
       {
         name: 'Umidade',
-        data: weather.data.humidity
+        data: toTimeSerie(weather.data.humidity)
       },
       {
         name: 'Índice UV',
-        data: weather.data.uv
+        data: toTimeSerie(weather.data.uv)
       }
     ]);
-  }, [weather.data.temperature, weather.data.humidity, weather.data.uv]);
+  }, [
+    weather.data.temperature,
+    weather.data.humidity,
+    weather.data.uv,
+    weather.data.time,
+    weather.loading
+  ]);
 
   return (
     <Box
-      id="chart"
+      // id="chart"
       sx={{
         bgcolor:
           theme.palette.mode === ThemeMode.DARK
@@ -214,7 +242,7 @@ const WeatherLineChart = ({ latitude, longitude }) => {
         padding: '0 20px'
       }}
     >
-      <Typography variant="h5" sx={{ ml: '25px', mb: '5px', mt: '10px' }}>
+      <Typography variant="h5" sx={{ ml: 3, mb: 0.5, mt: 3 }}>
         <FormattedMessage id="chart-weather" />
       </Typography>
       <ReactApexChart

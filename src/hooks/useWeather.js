@@ -39,10 +39,10 @@ export default function useWeather(latitude, longitude) {
 
   return {
     data: {
-      time: weather?.hourly?.time ?? [],
-      temperature: weather?.hourly?.temperature_2m ?? [],
-      humidity: weather?.hourly?.relativehumidity_2m ?? [],
-      uv: weather?.hourly?.uv_index ?? []
+      time: weather?.hourly?.time,
+      temperature: weather?.hourly?.temperature_2m,
+      humidity: weather?.hourly?.relativehumidity_2m,
+      uv: weather?.hourly?.uv_index
     },
     loading,
     error

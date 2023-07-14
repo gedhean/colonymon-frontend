@@ -3,7 +3,8 @@
   "account-type": "Account Type",
   "actions": "Actions",
   "apiaries": "Apiaries",
-  "apiary-hives": "Apiary #{name} - Beehives",
+  "apiary-hives": "Apiary {apiary} - Beehives",
+  "apiary-hives-details": "Apiary {apiary} - Beehive {hive}",
   "april": "April",
   "august": "August",
   "availability": "Availability",
@@ -127,5 +128,10 @@
   "welcome-banner-button": "Dissmiss",
   "welcome-banner-subtitle": "Colonymon is a platform that allows you to monitor your apiaries and hives.",
   "welcome-banner-tile": "Welcome to Colonymon",
-  "wellbeing": "Wellbeing"
+  "wellbeing": "Wellbeing",
+  "reason": "Reason",
+  "attention-required": "Attention Required",
+  "gateway-offline": "Gateway Offline",
+  "low-battery": "Low Battery",
+  "poor-health": "Poor Health"
 }

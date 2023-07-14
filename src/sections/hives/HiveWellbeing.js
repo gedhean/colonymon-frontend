@@ -62,7 +62,7 @@ const HiveWellbeing = ({ status }) => {
 };
 
 HiveWellbeing.propTypes = {
-  status: PropTypes.number.isRequired
+  status: PropTypes.number
 };
 
 export default HiveWellbeing;

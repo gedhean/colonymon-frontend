@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // third-party
 import { FormattedMessage, useIntl } from 'react-intl';
+import sub from 'date-fns/sub';
 
 // nextjs
 import { useRouter } from 'next/router';
@@ -19,13 +20,13 @@ import HiveLineChart from 'sections/hives/HiveLineChart';
 import WeatherLineChart from 'sections/dashboard/WeatherLineChart';
 import HiveBatteryLevel from 'sections/hives/HiveBatteryLevel';
 import HiveWellbeing from 'sections/hives/HiveWellbeing';
-import hivesData from 'data/hives';
 
 // assets
 import Co2Icon from 'components/icons/Co2Icon';
 import WeightIcon from 'components/icons/WeightIcon';
 import HumidityIcon from 'components/icons/HumidityIcon';
 import ThermometerIcon from 'components/icons/ThermometerIcon';
+import useHive from 'hooks/useHive';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -33,6 +34,11 @@ const HiveChartsPage = () => {
   const theme = useTheme();
   const router = useRouter();
   const { formatMessage } = useIntl();
+
+  const { data: hive } = useHive(router.query.apiaryId, router.query.hiveId);
+
+  console.log(router.query);
+  console.log(hive);
 
   const weightChartRef = useRef(null);
   const temperatureChartRef = useRef(null);
@@ -44,11 +50,27 @@ const HiveChartsPage = () => {
     chartRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
+  const lastSample = hive?.samples?.[hive?.samples?.length - 1];
+
+  const getSampleData = (samples, key) => {
+    const now = new Date();
+    return (
+      samples?.map((sample, index) => {
+        return {
+          x: sub(now, {
+            hours: samples.length - index + 2
+          }).getTime(),
+          y: sample[key]
+        };
+      }) ?? []
+    );
+  };
+
   return (
     <Page
       title={formatMessage(
         { id: 'apiary-hives-details' },
-        { apiary: router.query.apiaryId, hive: router.query.hiveId }
+        { apiary: hive?.apiaryName, hive: hive?.name }
       )}
     >
       <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -64,14 +86,14 @@ const HiveChartsPage = () => {
                 <FormattedMessage id="wellbeing" />
               </Typography>
               :
-              <HiveWellbeing status={0} />
+              <HiveWellbeing status={hive.health ?? 10} />
             </Stack>
             <Stack direction="row" spacing={1}>
               <Typography variant="headline">
                 <FormattedMessage id="battery-level" />
               </Typography>
               :
-              <HiveBatteryLevel level={100} />
+              <HiveBatteryLevel level={hive.battery} />
             </Stack>
           </Stack>
 
@@ -88,7 +110,7 @@ const HiveChartsPage = () => {
           sx={{ cursor: 'pointer' }}
         >
           <ReportCard
-            primary="50 Kg"
+            primary={`${lastSample?.weight?.toFixed(0)} Kg`}
             secondary={formatMessage({ id: 'weight' })}
             color={theme.palette.success.dark}
             iconPrimary={WeightIcon}
@@ -105,7 +127,7 @@ const HiveChartsPage = () => {
           sx={{ cursor: 'pointer' }}
         >
           <ReportCard
-            primary="35 C°"
+            primary={`${lastSample?.temperature?.toFixed(0)} C°`}
             secondary={formatMessage({ id: 'temperature' })}
             color={theme.palette.error.main}
             iconPrimary={ThermometerIcon}
@@ -123,7 +145,7 @@ const HiveChartsPage = () => {
           sx={{ cursor: 'pointer' }}
         >
           <ReportCard
-            primary="50%"
+            primary={`${lastSample?.umidity?.toFixed(0)} %`}
             secondary={formatMessage({ id: 'humidity' })}
             color={theme.palette.info.main}
             iconPrimary={HumidityIcon}
@@ -141,7 +163,7 @@ const HiveChartsPage = () => {
           sx={{ cursor: 'pointer' }}
         >
           <ReportCard
-            primary="50 PPM"
+            primary={`${lastSample?.co2?.toFixed(0)} PPM`}
             secondary={formatMessage({ id: 'carbon-dioxide' })}
             color={theme.palette.warning.main}
             iconPrimary={Co2Icon}
@@ -158,7 +180,7 @@ const HiveChartsPage = () => {
             paletteGroup={'success'}
             minRange={0}
             maxRange={50}
-            data={hivesData.hive3}
+            data={getSampleData(hive.samples, 'weight')}
           />
         </Grid>
         <Grid item xs={12} ref={temperatureChartRef}>
@@ -169,7 +191,7 @@ const HiveChartsPage = () => {
             paletteGroup={'error'}
             minRange={0}
             maxRange={50}
-            data={hivesData.hive1}
+            data={getSampleData(hive.samples, 'temperature')}
           />
         </Grid>
         <Grid item xs={12} ref={humidityChartRef}>
@@ -180,7 +202,7 @@ const HiveChartsPage = () => {
             paletteGroup={'info'}
             minRange={0}
             maxRange={50}
-            data={hivesData.hive2}
+            data={getSampleData(hive.samples, 'umidity')}
           />
         </Grid>
         <Grid item xs={12} ref={carbonDioxideChartRef}>
@@ -191,7 +213,7 @@ const HiveChartsPage = () => {
             paletteGroup={'warning'}
             minRange={0}
             maxRange={50}
-            data={hivesData.hive1}
+            data={getSampleData(hive.samples, 'co2')}
           />
         </Grid>
         <Grid item xs={12} ref={vibrationChartRef}>
@@ -202,7 +224,7 @@ const HiveChartsPage = () => {
             paletteGroup={'primary'}
             minRange={0}
             maxRange={1}
-            data={hivesData.hive4}
+            data={getSampleData(hive.samples, 'vibration')}
           />
         </Grid>
         <Grid item xs={12}>

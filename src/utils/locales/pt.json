@@ -3,8 +3,8 @@
   "account-type": "Tipo de conta",
   "actions": "Ações",
   "apiaries": "Apiários",
-  "apiary-hives": "Apiário #{apiary} - Colmeias",
-  "apiary-hives-details": "Apiário #{apiary} - Colmeia #{hive}",
+  "apiary-hives": "Apiário {apiary} - Colmeias",
+  "apiary-hives-details": "Apiário {apiary} - Colmeia {hive}",
   "april": "Abril",
   "august": "Agosto",
   "availability": "Disponibilidade",
@@ -128,5 +128,10 @@
   "welcome-banner-button": "Escoder esta mensagem",
   "welcome-banner-subtitle": "Acompanhe o desenvolvimento de suas colmeias",
   "welcome-banner-tile": "Bem-vindo ao Colonymon",
-  "wellbeing": "Bem-estar"
+  "wellbeing": "Bem-estar",
+  "reason": "Motivo",
+  "attention-required": "Atenção Requerida",
+  "gateway-offline": "Gateway Offline",
+  "low-battery": "Bateria Fraca",
+  "poor-health": "Saúde Pobre"
 }

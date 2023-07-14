@@ -10,8 +10,6 @@ import NextLink from 'next/link';
 // material-ui
 import {
   Box,
-  Button,
-  Chip,
   Divider,
   Link,
   Stack,
@@ -25,41 +23,26 @@ import {
   Typography
 } from '@mui/material';
 
-// project import
-import Dot from 'components/@extended/Dot';
-
 // assets
-import { EnvironmentOutlined } from '@ant-design/icons';
+import {
+  DisconnectOutlined,
+  FrownOutlined,
+  ThunderboltOutlined,
+  QuestionOutlined
+} from '@ant-design/icons';
+import { SeeHiveButton } from 'sections/hives/HiveTable';
 
-function createData(id, name, health, gateway) {
-  return { id, name, health, gateway };
+function createData(id, name, reason, hiveId) {
+  return { id, name, reason, hiveId };
 }
 
 const rows = [
-  createData(84564564, 'Flavor Been', 0, 2),
-  createData(98764564, 'Jaucou', 0, 0),
-  createData(98756325, 'Human Dubs', 2, 1),
-  createData(98652366, 'Foncarow', 1, 1),
-  createData(13286564, 'Psycobee', 100, 1),
-  createData(86739658, 'Honey Favor', 1, 0),
-  createData(13256498, 'Cowmay Foo', 1, 2),
-  createData(98753263, 'Barzory', 2, 2),
-  createData(98753275, 'Chevawsky', 2, 1),
-  createData(98753221, 'Chairmen King', 5, 0),
-  createData(98753211, 'Crawford', 5, 0),
-  createData(98753321, 'Bernardo', 5, 0),
-  createData(98253221, 'Flavio', 5, 0),
-  createData(98423291, 'Chairmen King', 5, 0),
-  createData(98234291, 'Chairmen King', 5, 0),
-  createData(98356291, 'Chairmen King', 5, 0),
-  createData(98345291, 'Chairmen King', 5, 0)
-];
-
-const locations = [
-  'Fortaleza - CE',
-  'Quixadá - CE',
-  'Quixeramobim - CE',
-  'São Paulo - SP'
+  createData(84564564, 'Flavor Been', 0, 1),
+  createData(98764564, 'Jaucou', 1, 2),
+  createData(98756325, 'Human Dubs', 1, 3),
+  createData(98652366, 'Foncarow', 0, 4),
+  createData(13286564, 'Psycobee', 2, 5),
+  createData(86739658, 'Honey Favor', 3, 6)
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -104,17 +87,7 @@ const headCells = [
     disablePadding: false
   },
   {
-    id: 'location',
-    align: 'left',
-    disablePadding: false
-  },
-  {
-    id: 'gateway',
-    align: 'left',
-    disablePadding: false
-  },
-  {
-    id: 'actions',
+    id: 'reason',
     align: 'left',
     disablePadding: false
   }
@@ -122,7 +95,7 @@ const headCells = [
 
 // ==============================|| APIARY TABLE - HEADER ||============================== //
 
-function ApiaryTableHead({ order, orderBy }) {
+function AttentionTableHead({ order, orderBy }) {
   return (
     <TableHead>
       <TableRow>
@@ -141,72 +114,46 @@ function ApiaryTableHead({ order, orderBy }) {
   );
 }
 
-ApiaryTableHead.propTypes = {
+AttentionTableHead.propTypes = {
   order: PropTypes.any,
   orderBy: PropTypes.string
 };
 
-// ==============================|| APIRAY TABLE - STATUS ||============================== //
-
-const GatewayStatus = ({ status }) => {
-  let color;
-  let title;
-
-  switch (status) {
-    case 0:
-      color = 'error';
-      title = 'offline';
-      break;
-    case 1:
-      color = 'success';
-      title = 'online';
-      break;
-    default:
-      color = 'secondary';
-      title = 'unknown';
-  }
-
-  return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Dot color={color} />
-      <Typography>
-        <FormattedMessage id={title} />
-      </Typography>
-    </Stack>
-  );
-};
-
-GatewayStatus.propTypes = {
-  status: PropTypes.number
-};
-
 // ==============================|| APIARY TABLE - HEALTH ||============================== //
 
-const ApiaryHealth = ({ health }) => {
-  let color;
+const AttentionReason = ({ reason }) => {
+  let icon;
   let title;
 
-  switch (health) {
+  switch (reason) {
     case 0:
-      color = 'error';
-      title = 'Crítico';
+      title = 'low-battery';
+      icon = <ThunderboltOutlined />;
       break;
     case 1:
-      color = 'warning';
-      title = 'Alerta';
+      title = 'poor-health';
+      icon = <FrownOutlined />;
       break;
     case 2:
-      color = 'success';
-      title = 'Bem-estar';
+      title = 'gateway-offline';
+      icon = <DisconnectOutlined />;
       break;
     default:
-      color = 'secondary';
-      title = 'Desconhecido';
+      title = 'unknown';
+      icon = <QuestionOutlined />;
   }
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Chip label={title} color={color} />
+    <Stack
+      direction="row"
+      spacing={1}
+      alignItems="center"
+      justifyContent="flex-start"
+    >
+      {icon}
+      <Typography variant="body1" color="inherit">
+        <FormattedMessage id={title} />
+      </Typography>
     </Stack>
   );
 };
@@ -215,7 +162,7 @@ const ApiaryHealth = ({ health }) => {
 const DEFAULT_PAGE = 0;
 const DEFAULT_ROWS_PER_PAGE = 10;
 
-export default function ApiaryTable({ apiaries }) {
+export default function AttentionTable({ hives }) {
   const [order] = useState('asc');
   const [orderBy] = useState('id');
   const [page, setPage] = useState(DEFAULT_PAGE);
@@ -240,13 +187,10 @@ export default function ApiaryTable({ apiaries }) {
         }}
       >
         <Table aria-labelledby="tableTitle">
-          <ApiaryTableHead order={order} orderBy={orderBy} />
+          <AttentionTableHead order={order} orderBy={orderBy} />
           <TableBody>
             {stableSort(
-              apiaries.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              ),
+              hives.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
               getComparator(order, orderBy)
             ).map((row, index) => {
               const labelId = `enhanced-table-checkbox-${index}`;
@@ -266,32 +210,20 @@ export default function ApiaryTable({ apiaries }) {
                     align="left"
                   >
                     <NextLink
-                      href={`/apiaries/${row.id}/hives`}
+                      href={`/apiaries/${row.apiaryId}/hives/${row.id}`}
                       passHref
                       legacyBehavior
+                      key={row.id}
                     >
                       <Link color="secondary">{row.id}</Link>
                     </NextLink>
                   </TableCell>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">
-                    <Typography variant="body" color="secondary">
-                      {row.latitude} {row.longitude} <EnvironmentOutlined />
-                    </Typography>
+                    <AttentionReason reason={row.reason} />
                   </TableCell>
                   <TableCell align="left">
-                    <GatewayStatus status={row.gateway} />
-                  </TableCell>
-                  <TableCell align="left">
-                    <NextLink
-                      href={`/apiaries/${row.id}/hives`}
-                      passHref
-                      legacyBehavior
-                    >
-                      <Button color="info" variant="outlined" size="small">
-                        <FormattedMessage id="view-hives" />
-                      </Button>
-                    </NextLink>
+                    <SeeHiveButton hiveId={row.id} apiaryId={row.apiaryId} />
                   </TableCell>
                 </TableRow>
               );

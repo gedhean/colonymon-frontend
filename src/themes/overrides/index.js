@@ -1,7 +1,7 @@
 // material-ui
 
 // third-party
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 // project import
 import Accordion from './Accordion';
